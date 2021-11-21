@@ -1,0 +1,12 @@
+# AndroidBoilerplate
+An android project that can be used as a boilerplate for future projects.
+
+The architecture and libraries used will soon be listed here.
+
+Things to update when cloning to a new project:
+- The package of java folders and file package names
+- Update package in AndroidManifest
+- Update applicationId with the package name in `app/build.gradle`
+- Update rootProject.name with the project name in `settings.gradle`
+- Update app_name in `strings.xml`
+- Rename theme names and update references
