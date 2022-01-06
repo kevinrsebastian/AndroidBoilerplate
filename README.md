@@ -18,3 +18,7 @@ Things to update when cloning to a new project:
 
 **[ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
     and [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)**
+
+**[AssertJ](https://assertj.github.io/doc)**
+
+**[Espresso](https://developer.android.com/topic/libraries/architecture/viewmodel)**

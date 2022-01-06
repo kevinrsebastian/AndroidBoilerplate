@@ -5,7 +5,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.kevinrsebastian.androidboilerplate.databinding.ActivityMainBinding
-import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,13 +20,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showGreetingWithDelay() {
-        val executor = Executors.newSingleThreadExecutor()
-        executor.execute {
-            vm.setLoading(true)
-            Thread.sleep(3000)
-
-            vm.setGreeting("Hello World!")
-            vm.setLoading(false)
-        }
+        val greeting = "Hello World!"
+        val loadingDelay = 1500L
+        vm.loadGreeting(greeting, loadingDelay)
     }
 }
