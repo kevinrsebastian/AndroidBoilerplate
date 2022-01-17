@@ -1,0 +1,2 @@
+// Dependency versions used in multi-module gradle files
+ext.hilt_version = "2.40.5"

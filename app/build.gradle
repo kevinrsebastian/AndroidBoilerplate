@@ -1,5 +1,6 @@
 plugins {
     id "com.android.application"
+    id "dagger.hilt.android.plugin"
     id "kotlin-android"
     id "kotlin-kapt"
 }
@@ -13,7 +14,7 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.kevinrsebastian.androidboilerplate.CustomTestRunner"
     }
 
     buildTypes {
@@ -53,13 +54,21 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.4.0"
 
     /* AndroidX Lifecycle */
-    //https://developer.android.com/jetpack/androidx/releases/lifecycle#groovy
+    // https://developer.android.com/jetpack/androidx/releases/lifecycle#groovy
     def lifecycle_version = "2.4.0"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
+
+    /* Hilt DI */
+    // https://developer.android.com/training/dependency-injection/hilt-android
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    // For Testing
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
 
     /* Material Design */
     // https://material.io/develop/android/docs/getting-started
@@ -82,6 +91,11 @@ dependencies {
     def assertj_version = "3.22.0"
     androidTestImplementation "org.assertj:assertj-core:$assertj_version"
     testImplementation "org.assertj:assertj-core:$assertj_version"
+
+    /* DataFactory */
+    def datafactory_version = "0.8"
+    androidTestImplementation "org.fluttercode.datafactory:datafactory:$datafactory_version"
+    testImplementation "org.fluttercode.datafactory:datafactory:$datafactory_version"
 
     /* JUnit */
     testImplementation "junit:junit:4.13.2"

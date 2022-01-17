@@ -9,6 +9,7 @@ Things to update when cloning to a new project:
 - Update rootProject.name with the project name in `settings.gradle`
 - Update app_name in `strings.xml`
 - Rename theme names and update references
+- Rename the Application class and update the reference in AndroidManifest
 
 ---
 
@@ -18,6 +19,8 @@ Things to update when cloning to a new project:
 
 **[ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
     and [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)**
+
+**[Hilt DI](https://developer.android.com/training/dependency-injection/hilt-android)**
 
 **[AssertJ](https://assertj.github.io/doc)**
 

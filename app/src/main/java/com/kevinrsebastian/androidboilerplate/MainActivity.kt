@@ -5,7 +5,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.kevinrsebastian.androidboilerplate.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val vm: MainActivityVm by viewModels()
@@ -20,8 +22,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showGreetingWithDelay() {
-        val greeting = "Hello World!"
         val loadingDelay = 1500L
-        vm.loadGreeting(greeting, loadingDelay)
+        vm.loadGreeting(loadingDelay)
     }
 }
