@@ -99,4 +99,10 @@ dependencies {
 
     /* JUnit */
     testImplementation "junit:junit:4.13.2"
+
+    /* Mockito */
+    def mockito_version = "4.2.0"
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-inline:$mockito_version"
 }

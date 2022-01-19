@@ -1,11 +1,11 @@
 package com.kevinrsebastian.androidboilerplate.di
 
 import com.kevinrsebastian.androidboilerplate.temp.TempGreeter
-import com.kevinrsebastian.androidboilerplate.temp.TempGreeterImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
+import org.mockito.Mockito
 import javax.inject.Singleton
 
 @Module
@@ -18,6 +18,6 @@ class TestTempModule {
     @Singleton
     @Provides
     fun provideTempGreeter(): TempGreeter {
-        return TempGreeterImpl("Jose")
+        return Mockito.mock(TempGreeter::class.java)
     }
 }

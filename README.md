@@ -25,3 +25,6 @@ Things to update when cloning to a new project:
 **[AssertJ](https://assertj.github.io/doc)**
 
 **[Espresso](https://developer.android.com/topic/libraries/architecture/viewmodel)**
+
+**[Mockito](https://site.mockito.org/)**\
+Android Guide: https://developer.android.com/training/testing/local-tests

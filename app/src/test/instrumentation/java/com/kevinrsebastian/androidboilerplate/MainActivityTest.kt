@@ -13,6 +13,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
 import javax.inject.Inject
 
 @HiltAndroidTest
@@ -32,7 +35,10 @@ internal class MainActivityTest {
 
     @Test
     fun launchDefault() {
-        val expectedGreeting = "Hello Jose!"
+        val expectedGreeting = "Hello Juan!"
+
+        // Mock behaviour
+        `when`(tempGreeter.greeting()).thenReturn(expectedGreeting)
 
         val scenario = launchActivity<MainActivity>()
 
@@ -40,7 +46,6 @@ internal class MainActivityTest {
         viewWithId(R.id.text_greeting).check(assertIsGone())
         viewWithId(R.id.progress_loading).check(assertIsVisible())
 
-        // The delay
         Thread.sleep(1500)
 
         // Check that greeting is shown and loading is done
@@ -48,31 +53,9 @@ internal class MainActivityTest {
         viewWithId(R.id.text_greeting).check(assertHasText(expectedGreeting))
         viewWithId(R.id.progress_loading).check(assertIsGone())
 
-        scenario.close()
-    }
-
-    @Test
-    fun launchGreeterSubjectSet() {
-        val subject = "Juan"
-        val expectedGreeting = "Hello $subject!"
-
-        // Change greeting
-        // Replace with mocks later
-        tempGreeter.setSubject(subject)
-
-        val scenario = launchActivity<MainActivity>()
-
-        // Check initial loading state
-        viewWithId(R.id.text_greeting).check(assertIsGone())
-        viewWithId(R.id.progress_loading).check(assertIsVisible())
-
-        // The delay
-        Thread.sleep(1500)
-
-        // Check that greeting is shown and loading is done
-        viewWithId(R.id.text_greeting).check(assertIsVisible())
-        viewWithId(R.id.text_greeting).check(assertHasText(expectedGreeting))
-        viewWithId(R.id.progress_loading).check(assertIsGone())
+        // Verify behaviour
+        verify(tempGreeter).greeting()
+        verifyNoMoreInteractions(tempGreeter)
 
         scenario.close()
     }
