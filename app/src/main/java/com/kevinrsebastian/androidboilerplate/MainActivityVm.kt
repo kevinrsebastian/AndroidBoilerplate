@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityVm @Inject constructor(
     private val tempService: TempService
-): ViewModel() {
+) : ViewModel() {
 
     private val greeting = MutableLiveData<String>()
     fun getGreeting() = greeting

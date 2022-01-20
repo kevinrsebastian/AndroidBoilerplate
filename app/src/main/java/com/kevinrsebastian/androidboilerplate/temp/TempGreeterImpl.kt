@@ -7,7 +7,7 @@ import javax.inject.Inject
  */
 class TempGreeterImpl @Inject constructor(
     private var subject: String
-): TempGreeter {
+) : TempGreeter {
 
     override fun greeting(): String {
         return "Hello $subject!"

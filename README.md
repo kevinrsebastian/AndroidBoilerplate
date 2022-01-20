@@ -28,3 +28,6 @@ Things to update when cloning to a new project:
 
 **[Mockito](https://site.mockito.org/)**\
 Android Guide: https://developer.android.com/training/testing/local-tests
+
+**[KTLint](https://ktlint.github.io)**\
+Plugin: https://github.com/jlleitschuh/ktlint-gradle

@@ -12,5 +12,5 @@ import dagger.hilt.android.components.ViewModelComponent
 abstract class AppModule {
 
     @Binds
-    abstract fun bindTempService(tempService: TempServiceImpl) : TempService
+    abstract fun bindTempService(tempService: TempServiceImpl): TempService
 }
