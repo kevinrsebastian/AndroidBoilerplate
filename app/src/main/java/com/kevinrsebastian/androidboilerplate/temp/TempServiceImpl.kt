@@ -1,5 +1,7 @@
 package com.kevinrsebastian.androidboilerplate.temp
 
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 /* No tests.
@@ -9,11 +11,13 @@ class TempServiceImpl @Inject constructor(
     private val tempGreeter: TempGreeter
 ) : TempService {
 
-    override fun getGreeting(): String {
-        return tempGreeter.greeting()
+    override fun getGreeting(): Single<String> {
+        return Single.fromCallable { tempGreeter.greeting() }
     }
 
-    override fun setGreetingSubject(subject: String) {
-        tempGreeter.setSubject(subject)
+    override fun setGreetingSubject(subject: String): Completable {
+        return Completable.fromAction {
+            tempGreeter.setSubject(subject)
+        }
     }
 }

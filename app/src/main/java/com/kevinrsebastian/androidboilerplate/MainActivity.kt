@@ -1,6 +1,7 @@
 package com.kevinrsebastian.androidboilerplate
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -16,8 +17,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.vm = vm
         binding.lifecycleOwner = this
+        binding.vm = vm
+        binding.onClickButton = View.OnClickListener {
+            showGreetingWithDelay()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
         showGreetingWithDelay()
     }
 

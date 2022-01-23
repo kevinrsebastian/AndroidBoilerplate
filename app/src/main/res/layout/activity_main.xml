@@ -6,6 +6,7 @@
 
     <data>
         <import type="android.view.View" />
+        <variable name="onClickButton" type="android.view.View.OnClickListener" />
         <variable name="vm" type="com.kevinrsebastian.androidboilerplate.MainActivityVm" />
     </data>
 
@@ -19,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{vm.greeting}"
-            android:visibility="@{vm.isLoading() ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.isLoading ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -29,11 +30,22 @@
             android:id="@+id/progress_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{vm.isLoading() ? View.VISIBLE : View.GONE}"
+            android:visibility="@{vm.isLoading ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:paddingHorizontal="16dp"
+            android:text="Load Greeting"
+            android:onClick="@{onClickButton}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
