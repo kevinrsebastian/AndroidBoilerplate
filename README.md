@@ -22,6 +22,8 @@ Things to update when cloning to a new project:
 
 **[Hilt DI](https://developer.android.com/training/dependency-injection/hilt-android)**
 
+**[ReactiveX](https://reactivex.io/)-[RxJava](https://github.com/ReactiveX/RxJava)**
+
 **[AssertJ](https://assertj.github.io/doc)**
 
 **[Espresso](https://developer.android.com/topic/libraries/architecture/viewmodel)**

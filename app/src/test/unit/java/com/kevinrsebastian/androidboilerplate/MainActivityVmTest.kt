@@ -3,6 +3,8 @@ package com.kevinrsebastian.androidboilerplate
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kevinrsebastian.androidboilerplate.extension.getOrAwaitValue
 import com.kevinrsebastian.androidboilerplate.extension.hasNotBeenSet
+import com.kevinrsebastian.androidboilerplate.model.data.User
+import com.kevinrsebastian.androidboilerplate.model.usecase.UserUseCase
 import com.kevinrsebastian.androidboilerplate.temp.TempService
 import com.kevinrsebastian.androidboilerplate.util.rx.SyncRxSchedulerUtils
 import io.reactivex.rxjava3.core.Completable
@@ -35,6 +37,8 @@ class MainActivityVmTest {
 
     private lateinit var classUnderTest: MainActivityVm
 
+    private val factory = DataFactory()
+
     private lateinit var mockitoClosable: AutoCloseable
 
     private lateinit var testScheduler: TestScheduler
@@ -44,6 +48,8 @@ class MainActivityVmTest {
     private var rxSchedulerUtils: SyncRxSchedulerUtils = SyncRxSchedulerUtils()
     @Mock
     private lateinit var tempService: TempService
+    @Mock
+    private lateinit var userUseCase: UserUseCase
 
     @Before
     fun setUp() {
@@ -54,7 +60,7 @@ class MainActivityVmTest {
         testScheduler = TestScheduler()
         RxJavaPlugins.setComputationSchedulerHandler { testScheduler }
 
-        classUnderTest = spy(MainActivityVm(rxSchedulerUtils, tempService))
+        classUnderTest = spy(MainActivityVm(rxSchedulerUtils, tempService, userUseCase))
     }
 
     @After
@@ -63,6 +69,7 @@ class MainActivityVmTest {
         mockitoClosable.close()
     }
 
+    /** Method: [MainActivityVm.loadGreeting] */
     @Test
     fun loadGreeting() {
         val expectedGreeting = "Hello Jose!"
@@ -98,6 +105,7 @@ class MainActivityVmTest {
         verifyNoMoreInteractions()
     }
 
+    /** Method: [MainActivityVm.setGreetingSubject] */
     @Test
     fun setGreetingSubject() {
         val newSubject = DataFactory().name
@@ -116,6 +124,88 @@ class MainActivityVmTest {
         verify(classUnderTest).setGreetingSubject(newSubject) // Called by this test
         verify(tempService).setGreetingSubject(newSubject)
         verify(rxSchedulerUtils).completableAsyncSchedulerTransformer()
+        verify(classUnderTest).setLoading(true)
+        verify(classUnderTest).setLoading(false)
+        verifyNoMoreInteractions()
+    }
+
+    /**
+     * Method: [MainActivityVm.greetUserWithId]
+     * Scenario: Success
+     */
+    @Test
+    fun greetUserWithIdSuccess() {
+        val expectedUser = User("1", factory.firstName, factory.lastName)
+        val expectedGreeting = "Hello ${expectedUser.firstName} ${expectedUser.lastName}!"
+        val loadingDelay = 1000L
+
+        // Mock behaviour
+        `when`(userUseCase.getUserFromApi(expectedUser.id))
+            .thenReturn(Single.just(expectedUser).delay(loadingDelay, MILLISECONDS))
+
+        assertInitialState()
+
+        // Execute the function being tested
+        classUnderTest.greetUserWithId(expectedUser.id)
+
+        // Load a slight delay to assert the loading state
+        assertThat(classUnderTest.isLoading.get()).isTrue
+
+        // Advance time by by the delay
+        testScheduler.advanceTimeBy(loadingDelay, MILLISECONDS)
+
+        // Assert the states
+        assertThat(classUnderTest.isLoading.get()).isFalse
+        assertThat(classUnderTest.greeting.getOrAwaitValue()).isEqualTo(expectedGreeting)
+
+        // Verify behaviour
+        verify(classUnderTest, times(3)).isLoading // Called by this test
+        verify(classUnderTest, times(2)).greeting // Called by this test
+        verify(classUnderTest).greetUserWithId(expectedUser.id) // Called by this test
+        verify(classUnderTest).setGreeting(expectedGreeting)
+        verify(userUseCase).getUserFromApi(expectedUser.id)
+        verify(rxSchedulerUtils).singleAsyncSchedulerTransformer<String>()
+        verify(classUnderTest).setLoading(true)
+        verify(classUnderTest).setLoading(false)
+        verifyNoMoreInteractions()
+    }
+
+    /**
+     * Method: [MainActivityVm.greetUserWithId]
+     * Scenario: [UserUseCase.getUserFromApi] will return an error.
+     */
+    @Test
+    fun greetUserWithIdError() {
+        val expectedErrorMessage = "No user detected"
+        val userId = "1"
+        val loadingDelay = 1000L
+
+        // Mock behaviour
+        `when`(userUseCase.getUserFromApi(userId))
+            .thenReturn(Single.error<User>(Exception("Error message")).delay(loadingDelay, MILLISECONDS))
+
+        assertInitialState()
+
+        // Execute the function being tested
+        classUnderTest.greetUserWithId(userId)
+
+        // Load a slight delay to assert the loading state
+        assertThat(classUnderTest.isLoading.get()).isTrue
+
+        // Advance time by by the delay
+        testScheduler.advanceTimeBy(loadingDelay, MILLISECONDS)
+
+        // Assert the states
+        assertThat(classUnderTest.isLoading.get()).isFalse
+        assertThat(classUnderTest.greeting.getOrAwaitValue()).isEqualTo(expectedErrorMessage)
+
+        // Verify behaviour
+        verify(classUnderTest, times(3)).isLoading // Called by this test
+        verify(classUnderTest, times(2)).greeting // Called by this test
+        verify(classUnderTest).greetUserWithId(userId) // Called by this test
+        verify(classUnderTest).setGreeting(expectedErrorMessage)
+        verify(userUseCase).getUserFromApi(userId)
+        verify(rxSchedulerUtils).singleAsyncSchedulerTransformer<String>()
         verify(classUnderTest).setLoading(true)
         verify(classUnderTest).setLoading(false)
         verifyNoMoreInteractions()

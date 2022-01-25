@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.vm = vm
         binding.onClickButton = View.OnClickListener {
-            showGreetingWithDelay()
+            vm.greetUserWithId(binding.editUserId.text.toString())
         }
     }
 

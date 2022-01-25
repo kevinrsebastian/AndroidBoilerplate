@@ -4,6 +4,8 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.kevinrsebastian.androidboilerplate.model.data.User
+import com.kevinrsebastian.androidboilerplate.model.usecase.UserUseCase
 import com.kevinrsebastian.androidboilerplate.temp.TempService
 import com.kevinrsebastian.androidboilerplate.util.rx.RxSchedulerUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityVm @Inject constructor(
     private val rxSchedulerUtils: RxSchedulerUtils,
-    private val tempService: TempService
+    private val tempService: TempService,
+    private val userUseCase: UserUseCase
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
@@ -66,6 +69,25 @@ class MainActivityVm @Inject constructor(
                 }
                 override fun onError(e: Throwable) {
                     // No error handling yet
+                    setLoading(false)
+                }
+            })
+    }
+
+    fun greetUserWithId(id: String) {
+        userUseCase.getUserFromApi(id)
+            .compose(rxSchedulerUtils.singleAsyncSchedulerTransformer())
+            .subscribe(object : SingleObserver<User> {
+                override fun onSubscribe(d: Disposable) {
+                    compositeDisposable.add(d)
+                    setLoading(true)
+                }
+                override fun onSuccess(user: User) {
+                    setGreeting("Hello ${user.firstName} ${user.lastName}!")
+                    setLoading(false)
+                }
+                override fun onError(e: Throwable) {
+                    setGreeting("No user detected")
                     setLoading(false)
                 }
             })
