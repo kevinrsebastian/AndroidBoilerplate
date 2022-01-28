@@ -3,6 +3,10 @@ package com.kevinrsebastian.androidboilerplate.model.usecase
 import com.google.gson.Gson
 import com.kevinrsebastian.androidboilerplate.api.MockApi
 import com.kevinrsebastian.androidboilerplate.model.data.User
+import com.kevinrsebastian.androidboilerplate.model.data.UserEntity
+import com.kevinrsebastian.androidboilerplate.model.db.UserDao
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -13,12 +17,16 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.spy
 import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.NumberFormatException
 
 @RunWith(JUnit4::class)
 internal class UserUseCaseImplTest {
@@ -31,6 +39,7 @@ internal class UserUseCaseImplTest {
 
     // Dependencies
     private lateinit var mockApi: MockApi
+    private lateinit var userDao: UserDao
 
     @Before
     fun setUp() {
@@ -44,7 +53,8 @@ internal class UserUseCaseImplTest {
             .build()
 
         mockApi = spy(retrofit.create(MockApi::class.java))
-        classUnderTest = spy(UserUseCaseImpl(mockApi))
+        userDao = Mockito.mock(UserDao::class.java, Mockito.CALLS_REAL_METHODS)
+        classUnderTest = spy(UserUseCaseImpl(mockApi, userDao))
     }
 
     @After
@@ -52,12 +62,16 @@ internal class UserUseCaseImplTest {
         server.shutdown()
     }
 
+    // =================================================================================================================
+    // API functions
+    // =================================================================================================================
+
     /**
      * Method: [UserUseCaseImpl.getUsersFromApi]
      * Scenario: Success
      */
     @Test
-    fun getUsersSuccess() {
+    fun getUsersFromApi() {
         val user1 = User("1", factory.firstName, factory.lastName)
         val user2 = User("2", factory.firstName, factory.lastName)
         val user3 = User("3", factory.firstName, factory.lastName)
@@ -79,6 +93,7 @@ internal class UserUseCaseImplTest {
         // Verify Behaviour
         verify(classUnderTest).getUsersFromApi() // Called by this test
         verify(mockApi).getAllUsers()
+        verifyNoMoreInteractions()
     }
 
     /**
@@ -86,7 +101,7 @@ internal class UserUseCaseImplTest {
      * Scenario: Success
      */
     @Test
-    fun getUserSuccess() {
+    fun getUserFromApiSuccess() {
         val expectedUser = User("1", factory.firstName, factory.lastName)
 
         // Load mock response
@@ -105,6 +120,7 @@ internal class UserUseCaseImplTest {
         // Verify Behaviour
         verify(classUnderTest).getUserFromApi(expectedUser.id) // Called by this test
         verify(mockApi).getUser(expectedUser.id)
+        verifyNoMoreInteractions()
     }
 
     /**
@@ -112,7 +128,7 @@ internal class UserUseCaseImplTest {
      * Scenario: An error will be returned because there is no user with matching ID.
      */
     @Test
-    fun getUserError() {
+    fun getUserFromApiError() {
         val userId = "1"
         val expectedErrorMessage = "User not found"
 
@@ -133,6 +149,76 @@ internal class UserUseCaseImplTest {
         // Verify Behaviour
         verify(classUnderTest).getUserFromApi(userId) // Called by this test
         verify(mockApi).getUser(userId)
+        verifyNoMoreInteractions()
+    }
+
+    // =================================================================================================================
+    // DB functions
+    // =================================================================================================================
+
+    /**
+     * Method: [UserUseCaseImpl.addUserToDb]
+     * Scenario: Success
+     */
+    @Test
+    fun addUserToDb() {
+        val user = User("1", factory.firstName, factory.lastName)
+        val userEntity = UserEntity(user.id.toInt(), user.firstName, user.lastName)
+
+        // Mock behaviour
+        `when`(userDao.insertUser(userEntity)).thenReturn(Completable.complete())
+
+        // Execute function to be tested
+        classUnderTest.addUserToDb(user).test().await().assertComplete()
+
+        // Verify Behaviour
+        verify(classUnderTest).addUserToDb(user) // Called by this test
+        verify(userDao).insertUser(userEntity)
+        verifyNoMoreInteractions()
+    }
+
+    /**
+     * Method: [UserUseCaseImpl.getUserFromDb]
+     * Scenario: Success
+     */
+    @Test
+    fun getUserFromDbSuccess() {
+        val expectedUser = User("1", factory.firstName, factory.lastName)
+        val userEntity = UserEntity(expectedUser.id.toInt(), expectedUser.firstName, expectedUser.lastName)
+
+        // Mock behaviour
+        `when`(userDao.getUser(expectedUser.id.toInt())).thenReturn(Single.just(userEntity))
+
+        // Execute function to be tested
+        val actualUser = classUnderTest.getUserFromDb(expectedUser.id).blockingGet()
+
+        // Assertions
+        assertEqual(actualUser, expectedUser)
+
+        // Verify Behaviour
+        verify(classUnderTest).getUserFromDb(expectedUser.id) // Called by this test
+        verify(userDao).getUser(expectedUser.id.toInt())
+        verifyNoMoreInteractions()
+    }
+
+    /**
+     * Method: [UserUseCaseImpl.getUserFromDb]
+     * Scenario: Error will occur because passed userId is a non-numeric string.
+     */
+    @Test
+    fun getUserFromDbError() {
+        val userId = "a"
+
+        // Execute function to be tested
+        classUnderTest.getUserFromDb(userId)
+            .test()
+            .assertNotComplete()
+            .await()
+            .assertError(NumberFormatException::class.java)
+
+        // Verify Behaviour
+        verify(classUnderTest).getUserFromDb(userId) // Called by this test
+        verifyNoMoreInteractions()
     }
 
     private fun assertEqual(users1: List<User>, users2: List<User>) {
@@ -146,5 +232,9 @@ internal class UserUseCaseImplTest {
         assertThat(user1.id).isEqualTo(user2.id)
         assertThat(user1.firstName).isEqualTo(user2.firstName)
         assertThat(user1.lastName).isEqualTo(user2.lastName)
+    }
+
+    private fun verifyNoMoreInteractions() {
+        verifyNoMoreInteractions(mockApi, userDao)
     }
 }

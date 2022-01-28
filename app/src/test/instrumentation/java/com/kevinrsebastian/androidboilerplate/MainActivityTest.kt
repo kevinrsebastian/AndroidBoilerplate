@@ -9,6 +9,8 @@ import com.kevinrsebastian.androidboilerplate.model.data.User
 import com.kevinrsebastian.androidboilerplate.model.usecase.UserUseCase
 import com.kevinrsebastian.androidboilerplate.temp.TempGreeter
 import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assertHasText
+import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assertIsDisabled
+import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assertIsEnabled
 import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assertIsGone
 import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assertIsVisible
 import com.kevinrsebastian.androidboilerplate.testutil.ViewTestUtils.viewWithId
@@ -34,15 +36,15 @@ internal class MainActivityTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
-    private val factory = DataFactory()
-
-    lateinit var scenario: ActivityScenario<MainActivity>
-
     @Inject
     lateinit var tempGreeter: TempGreeter
 
     @Inject
     lateinit var userUseCase: UserUseCase
+
+    private val factory = DataFactory()
+
+    private lateinit var scenario: ActivityScenario<MainActivity>
 
     @Before
     fun init() {
@@ -61,7 +63,7 @@ internal class MainActivityTest {
     }
 
     @Test
-    fun searchExistingUser() {
+    fun searchExistingUserInApi() {
         val user = User(factory.getNumberBetween(1, 50).toString(), factory.firstName, factory.lastName)
         val expectedGreeting = "Hello ${user.firstName} ${user.lastName}!"
 
@@ -69,28 +71,33 @@ internal class MainActivityTest {
         val loadingDelay = 1000L
         `when`(userUseCase.getUserFromApi(user.id))
             .thenReturn(Single.just(user).delay(loadingDelay, MILLISECONDS))
+        `when`(userUseCase.addUserToDb(user))
+            .thenReturn(Completable.complete())
 
         launchActivity()
 
         // Enter user ID and click submit
-        viewWithId(R.id.edit_user_id).perform(typeText(user.id))
-        viewWithId(R.id.btn_search).perform(ViewActions.click())
+        viewWithId(R.id.edit_api_user_id).perform(typeText(user.id))
+        viewWithId(R.id.btn_search_api).perform(ViewActions.click())
 
         // Assert loading and wait for delay
         assertLoading()
         Thread.sleep(loadingDelay)
 
-        assertGreetingIsShown(expectedGreeting)
+        assertNotLoading()
+        viewWithId(R.id.text_greeting).check(assertHasText(expectedGreeting))
 
         // Verify behaviour
         verify(tempGreeter).greeting()
-        verifyNoMoreInteractions(tempGreeter)
+        verify(userUseCase).getUserFromApi(user.id)
+        verify(userUseCase).addUserToDb(user)
+        verifyNoMoreInteractions()
 
         scenario.close()
     }
 
     @Test
-    fun searchUserError() {
+    fun searchUserInApiError() {
         val userId = factory.getNumberBetween(1, 50).toString()
         val expectedGreeting = "No user detected"
 
@@ -102,18 +109,82 @@ internal class MainActivityTest {
         launchActivity()
 
         // Enter user ID and click submit
-        viewWithId(R.id.edit_user_id).perform(typeText(userId))
-        viewWithId(R.id.btn_search).perform(ViewActions.click())
+        viewWithId(R.id.edit_api_user_id).perform(typeText(userId))
+        viewWithId(R.id.btn_search_api).perform(ViewActions.click())
 
         // Assert loading and wait for delay
         assertLoading()
         Thread.sleep(loadingDelay)
 
-        assertGreetingIsShown(expectedGreeting)
+        assertNotLoading()
+        viewWithId(R.id.text_greeting).check(assertHasText(expectedGreeting))
 
         // Verify behaviour
         verify(tempGreeter).greeting()
-        verifyNoMoreInteractions(tempGreeter)
+        verify(userUseCase).getUserFromApi(userId)
+        verifyNoMoreInteractions()
+
+        scenario.close()
+    }
+
+    @Test
+    fun searchExistingUserInDb() {
+        val user = User(factory.getNumberBetween(1, 50).toString(), factory.firstName, factory.lastName)
+        val expectedGreeting = "Hello ${user.firstName} ${user.lastName}!"
+
+        // Mock behaviour
+        val loadingDelay = 1000L
+        `when`(userUseCase.getUserFromDb(user.id))
+            .thenReturn(Single.just(user).delay(loadingDelay, MILLISECONDS))
+
+        launchActivity()
+
+        // Enter user ID and click submit
+        viewWithId(R.id.edit_db_user_id).perform(typeText(user.id))
+        viewWithId(R.id.btn_search_db).perform(ViewActions.click())
+
+        // Assert loading and wait for delay
+        assertLoading()
+        Thread.sleep(loadingDelay)
+
+        assertNotLoading()
+        viewWithId(R.id.text_greeting).check(assertHasText(expectedGreeting))
+
+        // Verify behaviour
+        verify(tempGreeter).greeting()
+        verify(userUseCase).getUserFromDb(user.id)
+        verifyNoMoreInteractions()
+
+        scenario.close()
+    }
+
+    @Test
+    fun searchUserInDbError() {
+        val userId = factory.getNumberBetween(1, 50).toString()
+        val expectedGreeting = "No user detected"
+
+        // Mock behaviour
+        val loadingDelay = 1000L
+        `when`(userUseCase.getUserFromDb(userId))
+            .thenReturn(Completable.complete().delay(loadingDelay, MILLISECONDS).andThen(Single.error(Exception())))
+
+        launchActivity()
+
+        // Enter user ID and click submit
+        viewWithId(R.id.edit_db_user_id).perform(typeText(userId))
+        viewWithId(R.id.btn_search_db).perform(ViewActions.click())
+
+        // Assert loading and wait for delay
+        assertLoading()
+        Thread.sleep(loadingDelay)
+
+        assertNotLoading()
+        viewWithId(R.id.text_greeting).check(assertHasText(expectedGreeting))
+
+        // Verify behaviour
+        verify(tempGreeter).greeting()
+        verify(userUseCase).getUserFromDb(userId)
+        verifyNoMoreInteractions()
 
         scenario.close()
     }
@@ -130,17 +201,25 @@ internal class MainActivityTest {
         assertLoading()
         Thread.sleep(1500)
 
-        assertGreetingIsShown(expectedGreeting)
+        assertNotLoading()
+        viewWithId(R.id.text_greeting).check(assertHasText(expectedGreeting))
     }
 
     private fun assertLoading() {
         viewWithId(R.id.text_greeting).check(assertIsGone())
         viewWithId(R.id.progress_loading).check(assertIsVisible())
+        viewWithId(R.id.btn_search_api).check(assertIsDisabled())
+        viewWithId(R.id.btn_search_db).check(assertIsDisabled())
     }
 
-    private fun assertGreetingIsShown(expectedGreeting: String) {
+    private fun assertNotLoading() {
         viewWithId(R.id.text_greeting).check(assertIsVisible())
-        viewWithId(R.id.text_greeting).check(assertHasText(expectedGreeting))
         viewWithId(R.id.progress_loading).check(assertIsGone())
+        viewWithId(R.id.btn_search_api).check(assertIsEnabled())
+        viewWithId(R.id.btn_search_db).check(assertIsEnabled())
+    }
+
+    private fun verifyNoMoreInteractions() {
+        verifyNoMoreInteractions(tempGreeter, userUseCase)
     }
 }

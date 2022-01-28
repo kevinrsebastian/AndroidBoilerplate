@@ -10,6 +10,7 @@ Things to update when cloning to a new project:
 - Update app_name in `strings.xml`
 - Rename theme names and update references
 - Rename the Application class and update the reference in AndroidManifest
+- Rename the RoomDatabase class and database name
 
 ---
 
@@ -23,6 +24,8 @@ Things to update when cloning to a new project:
 **[Hilt DI](https://developer.android.com/training/dependency-injection/hilt-android)**
 
 **[ReactiveX](https://reactivex.io/)-[RxJava](https://github.com/ReactiveX/RxJava)**
+
+**[Room DB](https://developer.android.com/training/data-storage/room)**
 
 **[AssertJ](https://assertj.github.io/doc)**
 

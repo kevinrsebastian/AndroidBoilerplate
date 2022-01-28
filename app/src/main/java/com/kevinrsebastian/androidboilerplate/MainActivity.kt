@@ -26,8 +26,11 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.vm = vm
-        binding.onClickButton = View.OnClickListener {
-            vm.greetUserWithId(binding.editUserId.text.toString())
+        binding.loadFromApi = View.OnClickListener {
+            vm.greetApiUserWithId(binding.editApiUserId.text.toString())
+        }
+        binding.loadFromDb = View.OnClickListener {
+            vm.greetDbUserWithId(binding.editDbUserId.text.toString())
         }
     }
 

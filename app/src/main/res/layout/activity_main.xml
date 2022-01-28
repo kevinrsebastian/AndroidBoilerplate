@@ -6,7 +6,8 @@
 
     <data>
         <import type="android.view.View" />
-        <variable name="onClickButton" type="android.view.View.OnClickListener" />
+        <variable name="loadFromApi" type="android.view.View.OnClickListener" />
+        <variable name="loadFromDb" type="android.view.View.OnClickListener" />
         <variable name="vm" type="com.kevinrsebastian.androidboilerplate.MainActivityVm" />
     </data>
 
@@ -39,31 +40,55 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <EditText
+            android:id="@+id/edit_api_user_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:hint="ENTER API USER ID"
+            app:layout_constraintBottom_toTopOf="@id/btn_search_db"
+            app:layout_constraintEnd_toStartOf="@id/btn_search_db"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_search_api"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:paddingHorizontal="16dp"
+            android:text="LOAD FROM API"
+            android:enabled="@{vm.isLoading ? false : true}"
+            android:onClick="@{loadFromApi}"
+            app:layout_constraintBottom_toTopOf="@id/btn_search_db"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <EditText
-            android:id="@+id/edit_user_id"
+            android:id="@+id/edit_db_user_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="32dp"
-            android:hint="ENTER USER ID"
+            android:layout_marginStart="16dp"
+            android:hint="ENTER DB USER ID"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btn_search"
+            app:layout_constraintEnd_toStartOf="@id/btn_search_db"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/btn_search"
+            android:id="@+id/btn_search_db"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="16dp"
             android:paddingHorizontal="16dp"
-            android:text="Load Greeting"
-            android:onClick="@{onClickButton}"
+            android:text="CHECK FROM DB"
+            android:enabled="@{vm.isLoading ? false : true}"
+            android:onClick="@{loadFromDb}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

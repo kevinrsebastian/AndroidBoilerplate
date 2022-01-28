@@ -10,6 +10,7 @@ import com.kevinrsebastian.androidboilerplate.temp.TempService
 import com.kevinrsebastian.androidboilerplate.util.rx.RxSchedulerUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.CompletableObserver
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.core.SingleObserver
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
@@ -74,8 +75,31 @@ class MainActivityVm @Inject constructor(
             })
     }
 
-    fun greetUserWithId(id: String) {
+    fun greetApiUserWithId(id: String) {
         userUseCase.getUserFromApi(id)
+            .flatMap { user ->
+                userUseCase.addUserToDb(user)
+                    .andThen(Single.fromCallable { user })
+            }
+            .compose(rxSchedulerUtils.singleAsyncSchedulerTransformer())
+            .subscribe(object : SingleObserver<User> {
+                override fun onSubscribe(d: Disposable) {
+                    compositeDisposable.add(d)
+                    setLoading(true)
+                }
+                override fun onSuccess(user: User) {
+                    setGreeting("Hello ${user.firstName} ${user.lastName}!")
+                    setLoading(false)
+                }
+                override fun onError(e: Throwable) {
+                    setGreeting("No user detected")
+                    setLoading(false)
+                }
+            })
+    }
+
+    fun greetDbUserWithId(id: String) {
+        userUseCase.getUserFromDb(id)
             .compose(rxSchedulerUtils.singleAsyncSchedulerTransformer())
             .subscribe(object : SingleObserver<User> {
                 override fun onSubscribe(d: Disposable) {

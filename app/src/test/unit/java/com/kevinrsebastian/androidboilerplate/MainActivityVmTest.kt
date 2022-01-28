@@ -130,11 +130,11 @@ class MainActivityVmTest {
     }
 
     /**
-     * Method: [MainActivityVm.greetUserWithId]
+     * Method: [MainActivityVm.greetApiUserWithId]
      * Scenario: Success
      */
     @Test
-    fun greetUserWithIdSuccess() {
+    fun greetApiUserWithIdSuccess() {
         val expectedUser = User("1", factory.firstName, factory.lastName)
         val expectedGreeting = "Hello ${expectedUser.firstName} ${expectedUser.lastName}!"
         val loadingDelay = 1000L
@@ -142,11 +142,13 @@ class MainActivityVmTest {
         // Mock behaviour
         `when`(userUseCase.getUserFromApi(expectedUser.id))
             .thenReturn(Single.just(expectedUser).delay(loadingDelay, MILLISECONDS))
+        `when`(userUseCase.addUserToDb(expectedUser))
+            .thenReturn(Completable.complete())
 
         assertInitialState()
 
         // Execute the function being tested
-        classUnderTest.greetUserWithId(expectedUser.id)
+        classUnderTest.greetApiUserWithId(expectedUser.id)
 
         // Load a slight delay to assert the loading state
         assertThat(classUnderTest.isLoading.get()).isTrue
@@ -161,9 +163,10 @@ class MainActivityVmTest {
         // Verify behaviour
         verify(classUnderTest, times(3)).isLoading // Called by this test
         verify(classUnderTest, times(2)).greeting // Called by this test
-        verify(classUnderTest).greetUserWithId(expectedUser.id) // Called by this test
+        verify(classUnderTest).greetApiUserWithId(expectedUser.id) // Called by this test
         verify(classUnderTest).setGreeting(expectedGreeting)
         verify(userUseCase).getUserFromApi(expectedUser.id)
+        verify(userUseCase).addUserToDb(expectedUser)
         verify(rxSchedulerUtils).singleAsyncSchedulerTransformer<String>()
         verify(classUnderTest).setLoading(true)
         verify(classUnderTest).setLoading(false)
@@ -171,11 +174,11 @@ class MainActivityVmTest {
     }
 
     /**
-     * Method: [MainActivityVm.greetUserWithId]
+     * Method: [MainActivityVm.greetApiUserWithId]
      * Scenario: [UserUseCase.getUserFromApi] will return an error.
      */
     @Test
-    fun greetUserWithIdError() {
+    fun greetApiUserWithIdError() {
         val expectedErrorMessage = "No user detected"
         val userId = "1"
         val loadingDelay = 1000L
@@ -187,7 +190,7 @@ class MainActivityVmTest {
         assertInitialState()
 
         // Execute the function being tested
-        classUnderTest.greetUserWithId(userId)
+        classUnderTest.greetApiUserWithId(userId)
 
         // Load a slight delay to assert the loading state
         assertThat(classUnderTest.isLoading.get()).isTrue
@@ -202,9 +205,91 @@ class MainActivityVmTest {
         // Verify behaviour
         verify(classUnderTest, times(3)).isLoading // Called by this test
         verify(classUnderTest, times(2)).greeting // Called by this test
-        verify(classUnderTest).greetUserWithId(userId) // Called by this test
+        verify(classUnderTest).greetApiUserWithId(userId) // Called by this test
         verify(classUnderTest).setGreeting(expectedErrorMessage)
         verify(userUseCase).getUserFromApi(userId)
+        verify(rxSchedulerUtils).singleAsyncSchedulerTransformer<String>()
+        verify(classUnderTest).setLoading(true)
+        verify(classUnderTest).setLoading(false)
+        verifyNoMoreInteractions()
+    }
+
+    /**
+     * Method: [MainActivityVm.greetDbUserWithId]
+     * Scenario: Success
+     */
+    @Test
+    fun greetDbUserWithIdSuccess() {
+        val expectedUser = User("1", factory.firstName, factory.lastName)
+        val expectedGreeting = "Hello ${expectedUser.firstName} ${expectedUser.lastName}!"
+        val loadingDelay = 1000L
+
+        // Mock behaviour
+        `when`(userUseCase.getUserFromDb(expectedUser.id))
+            .thenReturn(Single.just(expectedUser).delay(loadingDelay, MILLISECONDS))
+
+        assertInitialState()
+
+        // Execute the function being tested
+        classUnderTest.greetDbUserWithId(expectedUser.id)
+
+        // Load a slight delay to assert the loading state
+        assertThat(classUnderTest.isLoading.get()).isTrue
+
+        // Advance time by by the delay
+        testScheduler.advanceTimeBy(loadingDelay, MILLISECONDS)
+
+        // Assert the states
+        assertThat(classUnderTest.isLoading.get()).isFalse
+        assertThat(classUnderTest.greeting.getOrAwaitValue()).isEqualTo(expectedGreeting)
+
+        // Verify behaviour
+        verify(classUnderTest, times(3)).isLoading // Called by this test
+        verify(classUnderTest, times(2)).greeting // Called by this test
+        verify(classUnderTest).greetDbUserWithId(expectedUser.id) // Called by this test
+        verify(classUnderTest).setGreeting(expectedGreeting)
+        verify(userUseCase).getUserFromDb(expectedUser.id)
+        verify(rxSchedulerUtils).singleAsyncSchedulerTransformer<String>()
+        verify(classUnderTest).setLoading(true)
+        verify(classUnderTest).setLoading(false)
+        verifyNoMoreInteractions()
+    }
+
+    /**
+     * Method: [MainActivityVm.greetDbUserWithId]
+     * Scenario: [UserUseCase.getUserFromDb] will return an error.
+     */
+    @Test
+    fun greetDbUserWithIdError() {
+        val expectedErrorMessage = "No user detected"
+        val userId = "1"
+        val loadingDelay = 1000L
+
+        // Mock behaviour
+        `when`(userUseCase.getUserFromDb(userId))
+            .thenReturn(Single.error<User>(Exception("Error message")).delay(loadingDelay, MILLISECONDS))
+
+        assertInitialState()
+
+        // Execute the function being tested
+        classUnderTest.greetDbUserWithId(userId)
+
+        // Load a slight delay to assert the loading state
+        assertThat(classUnderTest.isLoading.get()).isTrue
+
+        // Advance time by by the delay
+        testScheduler.advanceTimeBy(loadingDelay, MILLISECONDS)
+
+        // Assert the states
+        assertThat(classUnderTest.isLoading.get()).isFalse
+        assertThat(classUnderTest.greeting.getOrAwaitValue()).isEqualTo(expectedErrorMessage)
+
+        // Verify behaviour
+        verify(classUnderTest, times(3)).isLoading // Called by this test
+        verify(classUnderTest, times(2)).greeting // Called by this test
+        verify(classUnderTest).greetDbUserWithId(userId) // Called by this test
+        verify(classUnderTest).setGreeting(expectedErrorMessage)
+        verify(userUseCase).getUserFromDb(userId)
         verify(rxSchedulerUtils).singleAsyncSchedulerTransformer<String>()
         verify(classUnderTest).setLoading(true)
         verify(classUnderTest).setLoading(false)
