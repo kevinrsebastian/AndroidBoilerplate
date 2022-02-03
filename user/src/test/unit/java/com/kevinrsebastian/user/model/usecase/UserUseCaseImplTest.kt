@@ -1,10 +1,10 @@
-package com.kevinrsebastian.androidboilerplate.model.usecase
+package com.kevinrsebastian.user.model.usecase
 
 import com.google.gson.Gson
-import com.kevinrsebastian.androidboilerplate.api.MockApi
-import com.kevinrsebastian.androidboilerplate.model.data.User
-import com.kevinrsebastian.androidboilerplate.model.data.UserEntity
-import com.kevinrsebastian.androidboilerplate.model.db.UserDao
+import com.kevinrsebastian.user.model.api.MockUserApi
+import com.kevinrsebastian.user.model.data.User
+import com.kevinrsebastian.user.model.data.UserEntity
+import com.kevinrsebastian.user.model.db.UserDao
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
@@ -19,6 +19,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
 import org.mockito.Mockito.spy
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
@@ -26,7 +27,6 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.NumberFormatException
 
 @RunWith(JUnit4::class)
 internal class UserUseCaseImplTest {
@@ -38,7 +38,7 @@ internal class UserUseCaseImplTest {
     private lateinit var server: MockWebServer
 
     // Dependencies
-    private lateinit var mockApi: MockApi
+    private lateinit var mockUserApi: MockUserApi
     private lateinit var userDao: UserDao
 
     @Before
@@ -52,9 +52,9 @@ internal class UserUseCaseImplTest {
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
 
-        mockApi = spy(retrofit.create(MockApi::class.java))
-        userDao = Mockito.mock(UserDao::class.java, Mockito.CALLS_REAL_METHODS)
-        classUnderTest = spy(UserUseCaseImpl(mockApi, userDao))
+        mockUserApi = spy(retrofit.create(MockUserApi::class.java))
+        userDao = mock(UserDao::class.java, Mockito.CALLS_REAL_METHODS)
+        classUnderTest = spy(UserUseCaseImpl(mockUserApi, userDao))
     }
 
     @After
@@ -92,7 +92,7 @@ internal class UserUseCaseImplTest {
 
         // Verify Behaviour
         verify(classUnderTest).getUsersFromApi() // Called by this test
-        verify(mockApi).getAllUsers()
+        verify(mockUserApi).getAllUsers()
         verifyNoMoreInteractions()
     }
 
@@ -119,7 +119,7 @@ internal class UserUseCaseImplTest {
 
         // Verify Behaviour
         verify(classUnderTest).getUserFromApi(expectedUser.id) // Called by this test
-        verify(mockApi).getUser(expectedUser.id)
+        verify(mockUserApi).getUser(expectedUser.id)
         verifyNoMoreInteractions()
     }
 
@@ -148,7 +148,7 @@ internal class UserUseCaseImplTest {
 
         // Verify Behaviour
         verify(classUnderTest).getUserFromApi(userId) // Called by this test
-        verify(mockApi).getUser(userId)
+        verify(mockUserApi).getUser(userId)
         verifyNoMoreInteractions()
     }
 
@@ -235,6 +235,6 @@ internal class UserUseCaseImplTest {
     }
 
     private fun verifyNoMoreInteractions() {
-        verifyNoMoreInteractions(mockApi, userDao)
+        verifyNoMoreInteractions(mockUserApi, userDao)
     }
 }

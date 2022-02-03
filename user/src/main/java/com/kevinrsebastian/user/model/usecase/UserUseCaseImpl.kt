@@ -1,16 +1,16 @@
-package com.kevinrsebastian.androidboilerplate.model.usecase
+package com.kevinrsebastian.user.model.usecase
 
-import com.kevinrsebastian.androidboilerplate.api.MockApi
-import com.kevinrsebastian.androidboilerplate.model.data.User
-import com.kevinrsebastian.androidboilerplate.model.data.UserEntity
-import com.kevinrsebastian.androidboilerplate.model.db.UserDao
+import com.kevinrsebastian.user.model.api.MockUserApi
+import com.kevinrsebastian.user.model.data.User
+import com.kevinrsebastian.user.model.data.UserEntity
+import com.kevinrsebastian.user.model.db.UserDao
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 internal class UserUseCaseImpl @Inject constructor(
-    private val mockApi: MockApi,
+    private val mockUserApi: MockUserApi,
     private val userDao: UserDao
 ) : UserUseCase {
 
@@ -19,11 +19,11 @@ internal class UserUseCaseImpl @Inject constructor(
     // =================================================================================================================
 
     override fun getUsersFromApi(): Single<List<User>> {
-        return mockApi.getAllUsers()
+        return mockUserApi.getAllUsers()
     }
 
     override fun getUserFromApi(id: String): Single<User> {
-        return mockApi.getUser(id)
+        return mockUserApi.getUser(id)
     }
 
     // =================================================================================================================

@@ -1,12 +1,11 @@
-package com.kevinrsebastian.androidboilerplate.model.data
+package com.kevinrsebastian.user.model.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.kevinrsebastian.androidboilerplate.model.db.DbTable
 
-@Entity(tableName = DbTable.USER)
+@Entity(tableName = "user")
 internal data class UserEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,

@@ -5,11 +5,11 @@ import com.kevinrsebastian.androidboilerplate.temp.TempGreeterImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(ViewModelComponent::class)
-class TempModule {
+@InstallIn(SingletonComponent::class)
+internal class TempModule {
 
     @Provides
     fun provideTempGreeter(): TempGreeter {

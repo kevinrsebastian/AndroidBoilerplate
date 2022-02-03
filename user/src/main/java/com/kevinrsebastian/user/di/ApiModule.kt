@@ -1,9 +1,9 @@
-package com.kevinrsebastian.androidboilerplate.di
+package com.kevinrsebastian.user.di
 
 import android.content.Context
 import android.os.Environment
-import com.kevinrsebastian.androidboilerplate.BuildConfig
-import com.kevinrsebastian.androidboilerplate.api.MockApi
+import com.kevinrsebastian.user.BuildConfig
+import com.kevinrsebastian.user.model.api.MockUserApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,8 +25,8 @@ internal class ApiModule {
 
     @Provides
     @Singleton
-    fun provideMockApi(retrofit: Retrofit): MockApi {
-        return retrofit.create(MockApi::class.java)
+    internal fun provideMockApi(retrofit: Retrofit): MockUserApi {
+        return retrofit.create(MockUserApi::class.java)
     }
 
     @Provides

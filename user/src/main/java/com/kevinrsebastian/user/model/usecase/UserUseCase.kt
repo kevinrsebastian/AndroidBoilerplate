@@ -1,6 +1,6 @@
-package com.kevinrsebastian.androidboilerplate.model.usecase
+package com.kevinrsebastian.user.model.usecase
 
-import com.kevinrsebastian.androidboilerplate.model.data.User
+import com.kevinrsebastian.user.model.data.User
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 

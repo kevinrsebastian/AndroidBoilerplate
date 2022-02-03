@@ -5,8 +5,6 @@ import androidx.test.core.app.launchActivity
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.kevinrsebastian.androidboilerplate.model.data.User
-import com.kevinrsebastian.androidboilerplate.model.usecase.UserUseCase
 import com.kevinrsebastian.androidboilerplate.temp.TempGreeter
 import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assertHasText
 import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assertIsDisabled
@@ -14,6 +12,8 @@ import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assert
 import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assertIsGone
 import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assertIsVisible
 import com.kevinrsebastian.androidboilerplate.testutil.ViewTestUtils.viewWithId
+import com.kevinrsebastian.user.model.data.User
+import com.kevinrsebastian.user.model.usecase.UserUseCase
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.reactivex.rxjava3.core.Completable

@@ -4,10 +4,10 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kevinrsebastian.androidboilerplate.model.data.User
-import com.kevinrsebastian.androidboilerplate.model.usecase.UserUseCase
 import com.kevinrsebastian.androidboilerplate.temp.TempService
 import com.kevinrsebastian.androidboilerplate.util.rx.RxSchedulerUtils
+import com.kevinrsebastian.user.model.data.User
+import com.kevinrsebastian.user.model.usecase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.CompletableObserver
 import io.reactivex.rxjava3.core.Single

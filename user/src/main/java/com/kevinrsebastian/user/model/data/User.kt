@@ -1,4 +1,4 @@
-package com.kevinrsebastian.androidboilerplate.model.data
+package com.kevinrsebastian.user.model.data
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

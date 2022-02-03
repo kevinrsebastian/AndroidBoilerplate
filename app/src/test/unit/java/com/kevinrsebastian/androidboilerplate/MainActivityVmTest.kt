@@ -3,10 +3,10 @@ package com.kevinrsebastian.androidboilerplate
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kevinrsebastian.androidboilerplate.extension.getOrAwaitValue
 import com.kevinrsebastian.androidboilerplate.extension.hasNotBeenSet
-import com.kevinrsebastian.androidboilerplate.model.data.User
-import com.kevinrsebastian.androidboilerplate.model.usecase.UserUseCase
 import com.kevinrsebastian.androidboilerplate.temp.TempService
 import com.kevinrsebastian.androidboilerplate.util.rx.SyncRxSchedulerUtils
+import com.kevinrsebastian.user.model.data.User
+import com.kevinrsebastian.user.model.usecase.UserUseCase
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
@@ -30,7 +30,7 @@ import org.mockito.Spy
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
 @RunWith(JUnit4::class)
-class MainActivityVmTest {
+internal class MainActivityVmTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
