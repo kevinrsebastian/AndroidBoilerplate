@@ -1,7 +1,7 @@
 # AndroidBoilerplate
 
-An android project that can be used as a boilerplate for future projects. This template project uses the MVVM
-architecture and attempts to conform to clean code and SOLID programming principles.
+An android project that can be used as a base for future projects. This template project uses the MVVM architecture
+and attempts to conform to clean code and SOLID programming principles.
 
 Things to update when cloning to a new project:
 - The package of java folders and file package names
@@ -79,6 +79,12 @@ feature Hilt module is made non-internal with internal functions. The instrument
 then placed in the app instrumentation folder, where it works fine. An alternative would be to add the feature
 instrumentation module directory as sourceSets in app `build.gradle`. But that defeats the purpose, as the actual
 Hilt module still needs to be non-internal to be detected.
+
+* Related to the issue above, feature module test utilities are not being detected in app module tests. To avoid code
+duplication, the test module has been introduced as a [workaround](https://treatwell.engineering/mock-factory-for-android-testing-in-multi-module-system-7654f45808be).
+This module holds the common test utilities used by other modules. A [potential fix](https://issuetracker.google.com/issues/139438142)
+is currently in development. Check this [article](http://michaelevans.org/blog/2019/09/21/stop-repeating-yourself-sharing-test-code-across-android-modules/)
+for more information.
 
 * It is recommended to test RoomDB DAOs in instrumentation, which worked when the project was still a monolith in
 app module. When converted to a modular structure, these instrumentation tests in feature modules are no longer

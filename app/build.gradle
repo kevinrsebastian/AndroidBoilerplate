@@ -49,6 +49,9 @@ android {
 dependencies {
     /* Modules */
     implementation project(":user")
+    implementation project(":test")
+    androidTestImplementation project(":test")
+    testImplementation project(":test")
 
     /* AndroidX Support Commons */
     // https://developer.android.com/jetpack/androidx/versions

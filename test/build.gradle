@@ -1,0 +1,60 @@
+plugins {
+    id "com.android.library"
+    id "kotlin-android"
+}
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        minSdk 26
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    sourceSets {
+        test.java.srcDir "src/test/common/java"
+        test.java.srcDir "src/test/unit/java"
+    }
+}
+
+dependencies {
+    /* Modules */
+    implementation project(":user")
+
+    /* AndroidX Support Commons */
+    // https://developer.android.com/jetpack/androidx/versions
+    implementation "androidx.core:core-ktx:1.7.0"
+    implementation "androidx.appcompat:appcompat:1.4.1"
+
+    /* AssertJ */
+    implementation "org.assertj:assertj-core:3.22.0"
+    testImplementation "org.assertj:assertj-core:3.22.0"
+
+    /* DataFactory */
+    implementation "org.fluttercode.datafactory:datafactory:0.8"
+    testImplementation "org.fluttercode.datafactory:datafactory:0.8"
+
+    /* JUnit */
+    testImplementation "junit:junit:4.13.2"
+}

@@ -5,6 +5,7 @@ import com.kevinrsebastian.androidboilerplate.extension.getOrAwaitValue
 import com.kevinrsebastian.androidboilerplate.extension.hasNotBeenSet
 import com.kevinrsebastian.androidboilerplate.temp.TempService
 import com.kevinrsebastian.androidboilerplate.util.rx.SyncRxSchedulerUtils
+import com.kevinrsebastian.test.factory.UserFactory
 import com.kevinrsebastian.user.model.data.User
 import com.kevinrsebastian.user.model.usecase.UserUseCase
 import io.reactivex.rxjava3.core.Completable
@@ -135,7 +136,7 @@ internal class MainActivityVmTest {
      */
     @Test
     fun greetApiUserWithIdSuccess() {
-        val expectedUser = User("1", factory.firstName, factory.lastName)
+        val expectedUser = UserFactory.user()
         val expectedGreeting = "Hello ${expectedUser.firstName} ${expectedUser.lastName}!"
         val loadingDelay = 1000L
 
@@ -180,7 +181,7 @@ internal class MainActivityVmTest {
     @Test
     fun greetApiUserWithIdError() {
         val expectedErrorMessage = "No user detected"
-        val userId = "1"
+        val userId = UserFactory.user().id
         val loadingDelay = 1000L
 
         // Mock behaviour
@@ -220,7 +221,7 @@ internal class MainActivityVmTest {
      */
     @Test
     fun greetDbUserWithIdSuccess() {
-        val expectedUser = User("1", factory.firstName, factory.lastName)
+        val expectedUser = UserFactory.user()
         val expectedGreeting = "Hello ${expectedUser.firstName} ${expectedUser.lastName}!"
         val loadingDelay = 1000L
 
@@ -262,7 +263,7 @@ internal class MainActivityVmTest {
     @Test
     fun greetDbUserWithIdError() {
         val expectedErrorMessage = "No user detected"
-        val userId = "1"
+        val userId = UserFactory.user().id
         val loadingDelay = 1000L
 
         // Mock behaviour

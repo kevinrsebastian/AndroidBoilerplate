@@ -1,8 +1,9 @@
 package com.kevinrsebastian.user.model.usecase
 
 import com.google.gson.Gson
+import com.kevinrsebastian.test.assertion.UserAssertion.assertEqual
+import com.kevinrsebastian.test.factory.UserFactory
 import com.kevinrsebastian.user.model.api.MockUserApi
-import com.kevinrsebastian.user.model.data.User
 import com.kevinrsebastian.user.model.data.UserEntity
 import com.kevinrsebastian.user.model.db.UserDao
 import io.reactivex.rxjava3.core.Completable
@@ -10,7 +11,6 @@ import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.assertj.core.api.Assertions.assertThat
 import org.fluttercode.datafactory.impl.DataFactory
 import org.junit.After
 import org.junit.Before
@@ -72,9 +72,9 @@ internal class UserUseCaseImplTest {
      */
     @Test
     fun getUsersFromApi() {
-        val user1 = User("1", factory.firstName, factory.lastName)
-        val user2 = User("2", factory.firstName, factory.lastName)
-        val user3 = User("3", factory.firstName, factory.lastName)
+        val user1 = UserFactory.user("1")
+        val user2 = UserFactory.user("2")
+        val user3 = UserFactory.user("3")
         val expectedUsers = arrayListOf(user1, user2, user3)
 
         // Load mock response
@@ -102,7 +102,7 @@ internal class UserUseCaseImplTest {
      */
     @Test
     fun getUserFromApiSuccess() {
-        val expectedUser = User("1", factory.firstName, factory.lastName)
+        val expectedUser = UserFactory.user()
 
         // Load mock response
         server.enqueue(
@@ -129,7 +129,7 @@ internal class UserUseCaseImplTest {
      */
     @Test
     fun getUserFromApiError() {
-        val userId = "1"
+        val userId = UserFactory.user().id
         val expectedErrorMessage = "User not found"
 
         // Load mock response
@@ -162,7 +162,7 @@ internal class UserUseCaseImplTest {
      */
     @Test
     fun addUserToDb() {
-        val user = User("1", factory.firstName, factory.lastName)
+        val user = UserFactory.user()
         val userEntity = UserEntity(user.id.toInt(), user.firstName, user.lastName)
 
         // Mock behaviour
@@ -183,7 +183,7 @@ internal class UserUseCaseImplTest {
      */
     @Test
     fun getUserFromDbSuccess() {
-        val expectedUser = User("1", factory.firstName, factory.lastName)
+        val expectedUser = UserFactory.user()
         val userEntity = UserEntity(expectedUser.id.toInt(), expectedUser.firstName, expectedUser.lastName)
 
         // Mock behaviour
@@ -219,19 +219,6 @@ internal class UserUseCaseImplTest {
         // Verify Behaviour
         verify(classUnderTest).getUserFromDb(userId) // Called by this test
         verifyNoMoreInteractions()
-    }
-
-    private fun assertEqual(users1: List<User>, users2: List<User>) {
-        assertThat(users1).hasSameSizeAs(users2)
-        for (i in users1.indices) {
-            assertEqual(users1[i], users2[i])
-        }
-    }
-
-    private fun assertEqual(user1: User, user2: User) {
-        assertThat(user1.id).isEqualTo(user2.id)
-        assertThat(user1.firstName).isEqualTo(user2.firstName)
-        assertThat(user1.lastName).isEqualTo(user2.lastName)
     }
 
     private fun verifyNoMoreInteractions() {

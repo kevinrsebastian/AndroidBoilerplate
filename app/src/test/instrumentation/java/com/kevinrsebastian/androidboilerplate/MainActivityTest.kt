@@ -12,7 +12,7 @@ import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assert
 import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assertIsGone
 import com.kevinrsebastian.androidboilerplate.testutil.AssertionTestUtils.assertIsVisible
 import com.kevinrsebastian.androidboilerplate.testutil.ViewTestUtils.viewWithId
-import com.kevinrsebastian.user.model.data.User
+import com.kevinrsebastian.test.factory.UserFactory
 import com.kevinrsebastian.user.model.usecase.UserUseCase
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -64,7 +64,7 @@ internal class MainActivityTest {
 
     @Test
     fun searchExistingUserInApi() {
-        val user = User(factory.getNumberBetween(1, 50).toString(), factory.firstName, factory.lastName)
+        val user = UserFactory.user()
         val expectedGreeting = "Hello ${user.firstName} ${user.lastName}!"
 
         // Mock behaviour
@@ -98,7 +98,7 @@ internal class MainActivityTest {
 
     @Test
     fun searchUserInApiError() {
-        val userId = factory.getNumberBetween(1, 50).toString()
+        val userId = UserFactory.user().id
         val expectedGreeting = "No user detected"
 
         // Mock behaviour
@@ -129,7 +129,7 @@ internal class MainActivityTest {
 
     @Test
     fun searchExistingUserInDb() {
-        val user = User(factory.getNumberBetween(1, 50).toString(), factory.firstName, factory.lastName)
+        val user = UserFactory.user()
         val expectedGreeting = "Hello ${user.firstName} ${user.lastName}!"
 
         // Mock behaviour
@@ -160,7 +160,7 @@ internal class MainActivityTest {
 
     @Test
     fun searchUserInDbError() {
-        val userId = factory.getNumberBetween(1, 50).toString()
+        val userId = UserFactory.user().id
         val expectedGreeting = "No user detected"
 
         // Mock behaviour
