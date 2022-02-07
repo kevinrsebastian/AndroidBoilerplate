@@ -25,6 +25,8 @@ and [LiveData](https://developer.android.com/topic/libraries/architecture/liveda
 
 **[ReactiveX](https://reactivex.io/)-[RxJava](https://github.com/ReactiveX/RxJava)**
 
+**[Retrofit](https://square.github.io/retrofit/)**
+
 **[Room DB](https://developer.android.com/training/data-storage/room)**
 
 **[AssertJ](https://assertj.github.io/doc)**
@@ -33,6 +35,8 @@ and [LiveData](https://developer.android.com/topic/libraries/architecture/liveda
 
 **[Mockito](https://site.mockito.org/)**\
 Android Guide: https://developer.android.com/training/testing/local-tests
+
+**[MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver)**
 
 **[KTLint](https://ktlint.github.io)**\
 Plugin: https://github.com/jlleitschuh/ktlint-gradle

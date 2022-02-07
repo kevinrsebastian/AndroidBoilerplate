@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk compile_sdk
 
     defaultConfig {
-        minSdk 26
-        targetSdk 31
-        versionCode 1
-        versionName "1.0"
+        minSdk min_sdk
+        targetSdk target_sdk
+        versionCode version_code
+        versionName version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -99,7 +99,7 @@ dependencies {
     testImplementation "junit:junit:4.13.2"
 
     /* Mockito */
-    def mockito_version = "4.2.0"
+    def mockito_version = "4.3.1"
     testImplementation "org.mockito:mockito-core:$mockito_version"
     testImplementation "org.mockito:mockito-inline:$mockito_version"
 }
