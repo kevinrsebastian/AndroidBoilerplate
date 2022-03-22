@@ -1,16 +1,6 @@
-# AndroidBoilerplate
+# Holo - Home Loan app
 
-An android project that can be used as a base for future projects. This template project uses the MVVM architecture
-and attempts to conform to clean code and SOLID programming principles.
-
-Things to update when cloning to a new project:
-- The package of java folders and file package names
-- Update package in AndroidManifest
-- Update applicationId with the package name in `app/build.gradle`
-- Update rootProject.name with the project name in `settings.gradle`
-- Update app_name in `strings.xml`
-- Rename theme names and update references
-- Rename the Application class and update the reference in AndroidManifest
+An android app for validating housing loan qualifications and calculating monthly amortization schedule. 
 
 ---
 
@@ -94,3 +84,16 @@ for more information.
 app module. When converted to a modular structure, these instrumentation tests in feature modules are no longer
 detected. The DAO tests have been removed in the build. No workarounds have been found yet, but potentially running
 these as unit tests with Robolectric could work.
+
+---
+
+### Changing packages
+
+Things to update when changing the app name and/or package:
+- The package of java folders and file package names
+- Update package in AndroidManifest
+- Update applicationId with the package name in `app/build.gradle`
+- Update rootProject.name with the project name in `settings.gradle`
+- Update app_name in `strings.xml`
+- Rename theme names and update references
+- Rename the Application class and update the reference in AndroidManifest

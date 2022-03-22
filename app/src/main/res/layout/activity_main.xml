@@ -8,7 +8,7 @@
         <import type="android.view.View" />
         <variable name="loadFromApi" type="android.view.View.OnClickListener" />
         <variable name="loadFromDb" type="android.view.View.OnClickListener" />
-        <variable name="vm" type="com.kevinrsebastian.androidboilerplate.MainActivityVm" />
+        <variable name="vm" type="com.fivenapp.holo.MainActivityVm" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
