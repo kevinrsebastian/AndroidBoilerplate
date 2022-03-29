@@ -1,4 +1,4 @@
-package com.fivenapp.holo.view.splash
+package com.fivenapp.holo.view.loan.schedule
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashActivityVm @Inject constructor(
+class LoanScheduleListActivityVm @Inject constructor(
     private val rxSchedulerUtils: RxSchedulerUtils,
 ) : ViewModel() {
 
@@ -26,7 +26,7 @@ class SplashActivityVm @Inject constructor(
         compositeDisposable.dispose()
     }
 
-    fun loadDelay(loadingDelay: Long, onSuccess: () -> Unit) {
+    fun loadLoanSchedules(loadingDelay: Long) {
         Completable.complete()
             .delay(loadingDelay, TimeUnit.MILLISECONDS)
             .compose(rxSchedulerUtils.completableAsyncSchedulerTransformer())
@@ -37,7 +37,6 @@ class SplashActivityVm @Inject constructor(
                 }
                 override fun onComplete() {
                     setLoading(false)
-                    onSuccess()
                 }
                 override fun onError(e: Throwable) {
                     // No error handling yet

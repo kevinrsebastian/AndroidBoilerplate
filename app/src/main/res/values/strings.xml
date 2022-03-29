@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Ho-Lo</string>
     <string name="label_home_loan_app">Home Loan App</string>
+
+    <string name="loan_amortization_schedules">Loan Amortization Schedules</string>
+    <string name="no_saved_schedules_yet">No saved schedules yet</string>
 </resources>

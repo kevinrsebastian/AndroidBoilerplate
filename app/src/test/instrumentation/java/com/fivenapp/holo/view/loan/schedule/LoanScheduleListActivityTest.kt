@@ -1,14 +1,12 @@
-package com.fivenapp.holo.view.splash
+package com.fivenapp.holo.view.loan.schedule
 
 import androidx.test.core.app.ActivityScenario
-import androidx.test.core.app.launchActivity
 import androidx.test.espresso.intent.Intents
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.fivenapp.holo.R
-import com.fivenapp.holo.testutil.AssertionTestUtils
-import com.fivenapp.holo.testutil.AssertionTestUtils.assertActivityIsStarted
+import com.fivenapp.holo.testutil.AssertionTestUtils.assertIsGone
+import com.fivenapp.holo.testutil.AssertionTestUtils.assertIsVisible
 import com.fivenapp.holo.testutil.ViewTestUtils.viewWithId
-import com.fivenapp.holo.view.loan.schedule.LoanScheduleListActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.After
@@ -19,12 +17,12 @@ import org.junit.runner.RunWith
 
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
-internal class SplashActivityTest {
+internal class LoanScheduleListActivityTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
-    private lateinit var scenario: ActivityScenario<SplashActivity>
+    private lateinit var scenario: ActivityScenario<LoanScheduleListActivity>
 
     @Before
     fun setUp() {
@@ -41,24 +39,30 @@ internal class SplashActivityTest {
     @Test
     fun launchDefault() {
         // Launch Activity and assert initial state
-        scenario = launchActivity<SplashActivity>()
-        viewWithId(R.id.container_branding).check(AssertionTestUtils.assertIsVisible())
+        launchActivity()
+    }
+
+    private fun launchActivity() {
+        scenario = androidx.test.core.app.launchActivity()
         assertLoading(true)
 
         // Advance the time to end loading
         val loadingDelay = 1000L
         Thread.sleep(loadingDelay)
 
-        // Loading will no longer be seen since this will start a different activity
-        // Assert that LoanScheduleListActivity has started
-        assertActivityIsStarted(LoanScheduleListActivity::class.java.name)
+        assertLoading(false)
+        assertEmptyState()
+    }
+
+    private fun assertEmptyState() {
+        viewWithId(R.id.container_empty_state).check(assertIsVisible())
     }
 
     private fun assertLoading(isLoading: Boolean) {
         if (isLoading) {
-            viewWithId(R.id.progress_loading).check(AssertionTestUtils.assertIsVisible())
+            viewWithId(R.id.progress_loading).check(assertIsVisible())
         } else {
-            viewWithId(R.id.progress_loading).check(AssertionTestUtils.assertIsGone())
+            viewWithId(R.id.progress_loading).check(assertIsGone())
         }
     }
 }

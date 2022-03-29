@@ -25,6 +25,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".view.loan.schedule.LoanScheduleListActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".MainActivity" />
 
     </application>

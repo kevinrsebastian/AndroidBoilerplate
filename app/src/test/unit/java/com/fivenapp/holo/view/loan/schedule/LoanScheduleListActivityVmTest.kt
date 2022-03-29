@@ -1,4 +1,4 @@
-package com.fivenapp.holo.view.splash
+package com.fivenapp.holo.view.loan.schedule
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.fivenapp.holo.util.rx.SyncRxSchedulerUtils
@@ -12,20 +12,18 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mockito
-import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.verifyNoMoreInteractions
 import org.mockito.MockitoAnnotations
 import org.mockito.Spy
 import java.util.concurrent.TimeUnit
 
 @RunWith(JUnit4::class)
-class SplashActivityVmTest {
+class LoanScheduleListActivityVmTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var classUnderTest: SplashActivityVm
+    private lateinit var classUnderTest: LoanScheduleListActivityVm
     private lateinit var mockitoClosable: AutoCloseable
     private lateinit var testScheduler: TestScheduler
 
@@ -42,7 +40,7 @@ class SplashActivityVmTest {
         testScheduler = TestScheduler()
         RxJavaPlugins.setComputationSchedulerHandler { testScheduler }
 
-        classUnderTest = Mockito.spy(SplashActivityVm(rxSchedulerUtils))
+        classUnderTest = Mockito.spy(LoanScheduleListActivityVm(rxSchedulerUtils))
     }
 
     @After
@@ -51,19 +49,15 @@ class SplashActivityVmTest {
         mockitoClosable.close()
     }
 
-    /** Method: [SplashActivityVm.loadDelay] */
+    /** Method: [LoanScheduleListActivityVm.loadLoanSchedules] */
     @Test
-    fun loadDelay() {
-        // Mock onSuccess callback
-        val function: () -> Unit = {}
-        val onSuccess = mock(function::class.java)
-
+    fun loadLoanSchedules() {
         // Assert initial state
         assertThat(classUnderTest.isLoading.get()).isFalse
 
         // Execute the function being tested
         val loadingDelay = 1000L
-        classUnderTest.loadDelay(loadingDelay, onSuccess)
+        classUnderTest.loadLoanSchedules(loadingDelay)
 
         // Advance the time by a slight delay to assert that loading started
         testScheduler.advanceTimeBy(100L, TimeUnit.MILLISECONDS)
@@ -75,16 +69,14 @@ class SplashActivityVmTest {
 
         // Verify behaviour
         verify(classUnderTest, Mockito.times(3)).isLoading // Called by this test
-        verify(classUnderTest).loadDelay(loadingDelay, onSuccess)
+        verify(classUnderTest).loadLoanSchedules(loadingDelay)
         verify(rxSchedulerUtils).completableAsyncSchedulerTransformer()
         verify(classUnderTest).setLoading(true)
         verify(classUnderTest).setLoading(false)
-        verify(onSuccess).invoke()
-        verifyNoMoreInteractions(onSuccess)
         verifyNoMoreInteractions()
     }
 
     private fun verifyNoMoreInteractions() {
-        verifyNoMoreInteractions(classUnderTest, rxSchedulerUtils)
+        Mockito.verifyNoMoreInteractions(classUnderTest, rxSchedulerUtils)
     }
 }
