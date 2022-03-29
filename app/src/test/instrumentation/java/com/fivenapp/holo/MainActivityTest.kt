@@ -12,15 +12,14 @@ import com.fivenapp.holo.testutil.AssertionTestUtils.assertIsEnabled
 import com.fivenapp.holo.testutil.AssertionTestUtils.assertIsGone
 import com.fivenapp.holo.testutil.AssertionTestUtils.assertIsVisible
 import com.fivenapp.holo.testutil.ViewTestUtils.viewWithId
+import com.fivenapp.test.base.BaseInstrumentationTest
 import com.fivenapp.test.factor.UserFactory
 import com.fivenapp.user.model.usecase.UserUseCase
-import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import org.fluttercode.datafactory.impl.DataFactory
-import org.junit.Before
-import org.junit.Rule
+import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
@@ -31,10 +30,7 @@ import javax.inject.Inject
 
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
-internal class MainActivityTest {
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
+internal class MainActivityTest : BaseInstrumentationTest() {
 
     @Inject
     lateinit var tempGreeter: TempGreeter
@@ -46,9 +42,10 @@ internal class MainActivityTest {
 
     private lateinit var scenario: ActivityScenario<MainActivity>
 
-    @Before
-    fun init() {
-        hiltRule.inject()
+    @After
+    override fun tearDown() {
+        super.tearDown()
+        scenario.close()
     }
 
     @Test
@@ -58,8 +55,6 @@ internal class MainActivityTest {
         // Verify behaviour
         verify(tempGreeter).greeting()
         verifyNoMoreInteractions(tempGreeter)
-
-        scenario.close()
     }
 
     @Test
@@ -92,8 +87,6 @@ internal class MainActivityTest {
         verify(userUseCase).getUserFromApi(user.id)
         verify(userUseCase).addUserToDb(user)
         verifyNoMoreInteractions()
-
-        scenario.close()
     }
 
     @Test
@@ -123,8 +116,6 @@ internal class MainActivityTest {
         verify(tempGreeter).greeting()
         verify(userUseCase).getUserFromApi(userId)
         verifyNoMoreInteractions()
-
-        scenario.close()
     }
 
     @Test
@@ -154,8 +145,6 @@ internal class MainActivityTest {
         verify(tempGreeter).greeting()
         verify(userUseCase).getUserFromDb(user.id)
         verifyNoMoreInteractions()
-
-        scenario.close()
     }
 
     @Test
@@ -185,8 +174,6 @@ internal class MainActivityTest {
         verify(tempGreeter).greeting()
         verify(userUseCase).getUserFromDb(userId)
         verifyNoMoreInteractions()
-
-        scenario.close()
     }
 
     private fun launchActivity() {

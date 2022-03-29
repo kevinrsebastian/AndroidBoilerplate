@@ -1,52 +1,28 @@
 package com.fivenapp.holo.view.loan.schedule
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.fivenapp.holo.util.rx.SyncRxSchedulerUtils
-import io.reactivex.rxjava3.plugins.RxJavaPlugins
-import io.reactivex.rxjava3.schedulers.TestScheduler
+import com.fivenapp.test.base.BaseUnitTest
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mockito
+import org.mockito.Mockito.spy
 import org.mockito.Mockito.verify
-import org.mockito.MockitoAnnotations
-import org.mockito.Spy
 import java.util.concurrent.TimeUnit
 
 @RunWith(JUnit4::class)
-class LoanScheduleListActivityVmTest {
-
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+internal class LoanScheduleListActivityVmTest : BaseUnitTest() {
 
     private lateinit var classUnderTest: LoanScheduleListActivityVm
-    private lateinit var mockitoClosable: AutoCloseable
-    private lateinit var testScheduler: TestScheduler
-
-    // Dependencies
-    @Spy
-    private var rxSchedulerUtils: SyncRxSchedulerUtils = SyncRxSchedulerUtils()
+    private lateinit var rxSchedulerUtils: SyncRxSchedulerUtils
 
     @Before
-    fun setUp() {
-        mockitoClosable = MockitoAnnotations.openMocks(this)
-
-        // Set up TestScheduler for advancing the time
-        RxJavaPlugins.reset()
-        testScheduler = TestScheduler()
-        RxJavaPlugins.setComputationSchedulerHandler { testScheduler }
-
-        classUnderTest = Mockito.spy(LoanScheduleListActivityVm(rxSchedulerUtils))
-    }
-
-    @After
-    fun tearDown() {
-        RxJavaPlugins.reset()
-        mockitoClosable.close()
+    override fun setUp() {
+        super.setUp()
+        rxSchedulerUtils = spy(SyncRxSchedulerUtils())
+        classUnderTest = spy(LoanScheduleListActivityVm(rxSchedulerUtils))
     }
 
     /** Method: [LoanScheduleListActivityVm.loadLoanSchedules] */

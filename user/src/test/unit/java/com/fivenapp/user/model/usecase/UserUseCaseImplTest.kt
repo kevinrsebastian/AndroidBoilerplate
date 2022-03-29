@@ -1,11 +1,12 @@
 package com.fivenapp.user.model.usecase
 
-import com.google.gson.Gson
 import com.fivenapp.test.assertion.UserAssertion.assertEqual
+import com.fivenapp.test.base.BaseUnitTest
 import com.fivenapp.test.factor.UserFactory
 import com.fivenapp.user.model.api.MockUserApi
 import com.fivenapp.user.model.data.UserEntity
 import com.fivenapp.user.model.db.UserDao
+import com.google.gson.Gson
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
@@ -29,20 +30,19 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 @RunWith(JUnit4::class)
-internal class UserUseCaseImplTest {
+internal class UserUseCaseImplTest : BaseUnitTest() {
+
+    private lateinit var classUnderTest: UserUseCaseImpl
+    private lateinit var mockUserApi: MockUserApi
+    private lateinit var server: MockWebServer
+    private lateinit var userDao: UserDao
 
     private val factory = DataFactory()
 
-    private lateinit var classUnderTest: UserUseCaseImpl
-
-    private lateinit var server: MockWebServer
-
-    // Dependencies
-    private lateinit var mockUserApi: MockUserApi
-    private lateinit var userDao: UserDao
-
     @Before
-    fun setUp() {
+    override fun setUp() {
+        super.setUp()
+
         // Set up a mock server
         server = MockWebServer()
         val retrofit = Retrofit.Builder()
@@ -58,7 +58,7 @@ internal class UserUseCaseImplTest {
     }
 
     @After
-    fun tearDown() {
+    override fun tearDown() {
         server.shutdown()
     }
 

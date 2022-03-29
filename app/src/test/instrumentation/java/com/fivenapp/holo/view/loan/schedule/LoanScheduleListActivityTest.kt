@@ -1,38 +1,26 @@
 package com.fivenapp.holo.view.loan.schedule
 
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.intent.Intents
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.fivenapp.holo.R
 import com.fivenapp.holo.testutil.AssertionTestUtils.assertIsGone
 import com.fivenapp.holo.testutil.AssertionTestUtils.assertIsVisible
 import com.fivenapp.holo.testutil.ViewTestUtils.viewWithId
-import dagger.hilt.android.testing.HiltAndroidRule
+import com.fivenapp.test.base.BaseInstrumentationTest
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.After
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
-internal class LoanScheduleListActivityTest {
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
+internal class LoanScheduleListActivityTest : BaseInstrumentationTest() {
 
     private lateinit var scenario: ActivityScenario<LoanScheduleListActivity>
 
-    @Before
-    fun setUp() {
-        Intents.init()
-        hiltRule.inject()
-    }
-
     @After
-    fun tearDown() {
-        Intents.release()
+    override fun tearDown() {
+        super.tearDown()
         scenario.close()
     }
 
