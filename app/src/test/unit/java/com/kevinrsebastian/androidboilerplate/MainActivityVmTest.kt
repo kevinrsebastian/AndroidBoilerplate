@@ -1,73 +1,44 @@
 package com.kevinrsebastian.androidboilerplate
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kevinrsebastian.androidboilerplate.extension.getOrAwaitValue
 import com.kevinrsebastian.androidboilerplate.extension.hasNotBeenSet
 import com.kevinrsebastian.androidboilerplate.temp.TempService
 import com.kevinrsebastian.androidboilerplate.util.rx.SyncRxSchedulerUtils
+import com.kevinrsebastian.test.base.BaseUnitTest
 import com.kevinrsebastian.test.factory.UserFactory
 import com.kevinrsebastian.user.model.data.User
 import com.kevinrsebastian.user.model.usecase.UserUseCase
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.plugins.RxJavaPlugins
-import io.reactivex.rxjava3.schedulers.TestScheduler
 import org.assertj.core.api.Assertions.assertThat
 import org.fluttercode.datafactory.impl.DataFactory
-import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.spy
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
-import org.mockito.MockitoAnnotations
-import org.mockito.Spy
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
 @RunWith(JUnit4::class)
-internal class MainActivityVmTest {
-
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+internal class MainActivityVmTest : BaseUnitTest() {
 
     private lateinit var classUnderTest: MainActivityVm
-
-    private val factory = DataFactory()
-
-    private lateinit var mockitoClosable: AutoCloseable
-
-    private lateinit var testScheduler: TestScheduler
-
-    // Dependencies
-    @Spy
     private var rxSchedulerUtils: SyncRxSchedulerUtils = SyncRxSchedulerUtils()
-    @Mock
     private lateinit var tempService: TempService
-    @Mock
     private lateinit var userUseCase: UserUseCase
 
     @Before
-    fun setUp() {
-        mockitoClosable = MockitoAnnotations.openMocks(this)
-
-        // Set up TestScheduler for advancing the time
-        RxJavaPlugins.reset()
-        testScheduler = TestScheduler()
-        RxJavaPlugins.setComputationSchedulerHandler { testScheduler }
-
+    override fun setUp() {
+        super.setUp()
+        rxSchedulerUtils = spy(SyncRxSchedulerUtils())
+        tempService = Mockito.mock(TempService::class.java)
+        userUseCase = Mockito.mock(UserUseCase::class.java)
         classUnderTest = spy(MainActivityVm(rxSchedulerUtils, tempService, userUseCase))
-    }
-
-    @After
-    fun tearDown() {
-        RxJavaPlugins.reset()
-        mockitoClosable.close()
     }
 
     /** Method: [MainActivityVm.loadGreeting] */

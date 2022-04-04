@@ -1,6 +1,7 @@
 plugins {
     id "com.android.library"
     id "kotlin-android"
+    id "kotlin-kapt"
 }
 
 android {
@@ -43,15 +44,36 @@ dependencies {
     // https://developer.android.com/jetpack/androidx/versions
     implementation "androidx.core:core-ktx:1.7.0"
     implementation "androidx.appcompat:appcompat:1.4.1"
+    implementation "androidx.arch.core:core-testing:2.1.0"
+
+    /* AndroidX Test */
+    def espresso_version = "3.4.0"
+    implementation "androidx.test.espresso:espresso-intents:$espresso_version"
 
     /* AssertJ */
     implementation "org.assertj:assertj-core:3.22.0"
-    testImplementation "org.assertj:assertj-core:3.22.0"
 
     /* DataFactory */
     implementation "org.fluttercode.datafactory:datafactory:0.8"
-    testImplementation "org.fluttercode.datafactory:datafactory:0.8"
+
+    /* Hilt DI */
+    // https://developer.android.com/training/dependency-injection/hilt-android
+    // For Testing
+    implementation "com.google.dagger:hilt-android-testing:$hilt_version"
 
     /* JUnit */
-    testImplementation "junit:junit:4.13.2"
+    implementation "junit:junit:4.13.2"
+
+    /* Matchers */
+    // http://hamcrest.org/JavaHamcrest/distributables
+    implementation "org.hamcrest:hamcrest:2.2"
+    implementation "org.hamcrest:hamcrest-library:2.2"
+
+    /* Mockito */
+    def mockito_version = '4.4.0'
+    implementation "org.mockito:mockito-core:$mockito_version"
+
+    /* ReactiveX */
+    // https://reactivex.io
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.4'
 }

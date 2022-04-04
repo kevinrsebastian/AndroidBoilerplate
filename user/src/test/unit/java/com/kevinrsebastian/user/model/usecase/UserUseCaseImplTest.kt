@@ -2,6 +2,7 @@ package com.kevinrsebastian.user.model.usecase
 
 import com.google.gson.Gson
 import com.kevinrsebastian.test.assertion.UserAssertion.assertEqual
+import com.kevinrsebastian.test.base.BaseUnitTest
 import com.kevinrsebastian.test.factory.UserFactory
 import com.kevinrsebastian.user.model.api.MockUserApi
 import com.kevinrsebastian.user.model.data.UserEntity
@@ -11,7 +12,6 @@ import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.fluttercode.datafactory.impl.DataFactory
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -29,20 +29,17 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 @RunWith(JUnit4::class)
-internal class UserUseCaseImplTest {
-
-    private val factory = DataFactory()
+internal class UserUseCaseImplTest : BaseUnitTest() {
 
     private lateinit var classUnderTest: UserUseCaseImpl
-
-    private lateinit var server: MockWebServer
-
-    // Dependencies
     private lateinit var mockUserApi: MockUserApi
+    private lateinit var server: MockWebServer
     private lateinit var userDao: UserDao
 
     @Before
-    fun setUp() {
+    override fun setUp() {
+        super.setUp()
+
         // Set up a mock server
         server = MockWebServer()
         val retrofit = Retrofit.Builder()
@@ -58,7 +55,7 @@ internal class UserUseCaseImplTest {
     }
 
     @After
-    fun tearDown() {
+    override fun tearDown() {
         server.shutdown()
     }
 
