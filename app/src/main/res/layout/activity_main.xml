@@ -8,13 +8,13 @@
         <import type="android.view.View" />
         <variable name="loadFromApi" type="android.view.View.OnClickListener" />
         <variable name="loadFromDb" type="android.view.View.OnClickListener" />
-        <variable name="vm" type="com.kevinrsebastian.androidboilerplate.MainActivityVm" />
+        <variable name="vm" type="ph.teko.app.MainActivityVm" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context="ph.teko.app.MainActivity">
 
         <TextView
             android:id="@+id/text_greeting"

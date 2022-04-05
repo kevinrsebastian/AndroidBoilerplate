@@ -6,8 +6,7 @@ dependencyResolutionManagement {
         jcenter() // Warning: this repository is going to shut down soon
     }
 }
-rootProject.name = "AndroidBoilerplate"
 include ":app"
-include ":user"
 include ":test"
 include ':ui-components'
+include ":user"

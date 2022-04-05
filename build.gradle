@@ -31,9 +31,7 @@ subprojects {
     }
 
     // Optionally configure plugin
-    ktlint {
-        debug = true
-    }
+    ktlint { debug = true }
 }
 
 task clean(type: Delete) {
