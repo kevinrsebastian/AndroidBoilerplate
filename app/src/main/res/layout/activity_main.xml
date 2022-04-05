@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{vm.greeting}"
-            android:textColor="@color/teal_700"
+            android:textColor="@color/md_theme_tertiary"
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="@{vm.isLoading ? View.GONE : View.VISIBLE}"

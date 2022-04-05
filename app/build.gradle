@@ -51,6 +51,7 @@ dependencies {
     /* Modules */
     implementation project(":user")
     implementation project(":test")
+    implementation project(":ui-components")
     androidTestImplementation project(":test")
     testImplementation project(":test")
 

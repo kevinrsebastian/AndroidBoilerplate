@@ -10,3 +10,4 @@ rootProject.name = "AndroidBoilerplate"
 include ":app"
 include ":user"
 include ":test"
+include ':ui-components'

@@ -53,8 +53,9 @@ This template follows the MVVM architecture separated by kotlin modules in an at
 The app module holds the android components of the project, including:
 * The Application class
 * Activities, Fragments, Services and other android classes
-* Resources such as layouts, texts, images, colors, etc.
 * ViewModel and its Controller that uses the feature module UseCases
+* Resources such as layouts, strings, images, etc.
+* Depends on the UI Component module for colors and theming
 
 This module sits on top of the dependency stack, meaning that it is not visible (internal in Kotlin terms) to lower
 modules such as feature and the core module. In the scheme of MVVM, the app module holds the View and ViewModel.
@@ -72,6 +73,10 @@ module is broken down into the following components:
 
 This module is also internal, but exposes the Data Models and UseCases. UseCases are injected into the app module via
 the feature Hilt Module Class. In the scheme of MVVM, this module serves as the Model.
+
+#### UI Component Module
+
+Contains color and theme resources shared by modules that have layouts for Activities and Fragments.
 
 ---
 
