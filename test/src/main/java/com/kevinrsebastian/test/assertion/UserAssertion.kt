@@ -1,7 +1,7 @@
 package com.kevinrsebastian.test.assertion
 
-import com.kevinrsebastian.user.model.data.User
 import org.assertj.core.api.Assertions.assertThat
+import ph.teko.app.user_model.data.User
 
 object UserAssertion {
 

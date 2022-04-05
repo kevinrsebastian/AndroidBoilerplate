@@ -4,8 +4,6 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kevinrsebastian.user.model.data.User
-import com.kevinrsebastian.user.model.usecase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.CompletableObserver
 import io.reactivex.rxjava3.core.Single
@@ -13,6 +11,8 @@ import io.reactivex.rxjava3.core.SingleObserver
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import ph.teko.app.temp.TempService
+import ph.teko.app.user_model.data.User
+import ph.teko.app.user_model.usecase.UserUseCase
 import ph.teko.app.util.rx.RxSchedulerUtils
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

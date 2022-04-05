@@ -38,7 +38,7 @@ android {
 
 dependencies {
     /* Modules */
-    implementation project(":user")
+    implementation project(":user-model")
 
     /* AndroidX Support Commons */
     // https://developer.android.com/jetpack/androidx/versions

@@ -7,7 +7,6 @@ import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kevinrsebastian.test.base.BaseInstrumentationTest
 import com.kevinrsebastian.test.factory.UserFactory
-import com.kevinrsebastian.user.model.usecase.UserUseCase
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -24,6 +23,7 @@ import ph.teko.app.testutil.AssertionTestUtils.assertIsEnabled
 import ph.teko.app.testutil.AssertionTestUtils.assertIsGone
 import ph.teko.app.testutil.AssertionTestUtils.assertIsVisible
 import ph.teko.app.testutil.ViewTestUtils.viewWithId
+import ph.teko.app.user_model.usecase.UserUseCase
 import java.util.concurrent.TimeUnit.MILLISECONDS
 import javax.inject.Inject
 

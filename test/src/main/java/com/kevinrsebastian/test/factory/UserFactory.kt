@@ -1,7 +1,7 @@
 package com.kevinrsebastian.test.factory
 
-import com.kevinrsebastian.user.model.data.User
 import org.fluttercode.datafactory.impl.DataFactory
+import ph.teko.app.user_model.data.User
 
 object UserFactory {
 

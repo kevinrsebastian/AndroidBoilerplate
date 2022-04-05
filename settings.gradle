@@ -8,5 +8,5 @@ dependencyResolutionManagement {
 }
 include ":app"
 include ":test"
-include ":user"
 include ":ui-components"
+include ":user-model"
