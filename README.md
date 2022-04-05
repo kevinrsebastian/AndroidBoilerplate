@@ -1,20 +1,64 @@
-# AndroidBoilerplate
+# Teko Android App
 
-An android project that can be used as a base for future projects. This template project uses the MVVM architecture
-and attempts to conform to clean code and SOLID programming principles.
+An android app for Teko technicians' use. The app allows them to register, shows their job schedule, and provide other
+tools to help them complete their jobs.
 
-Things to update when cloning to a new project:
-- The package of java folders and file package names
-- Update package in AndroidManifest
-- Update applicationId with the package name in `app/build.gradle`
-- Update rootProject.name with the project name in `settings.gradle`
-- Update app_name in `strings.xml`
-- Rename theme names and update references
-- Rename the Application class and update the reference in AndroidManifest
 
----
+## Architecture and Components
 
-### Features and Libraries Used
+This template follows the MVVM architecture separated by kotlin modules in an attempt to conform to
+[clean code](https://www.oncehub.com/blog/explaining-clean-architecture) architecture.
+
+### App Module
+
+The app module is the top module and serves as the entry point to the app. It holds the android components of the 
+project, including:
+* The Application class and Hilt Modules
+* Activities, Fragments, Services and other android classes
+* ViewModel that uses feature-model module UseCases
+* Application AndroidManifest
+* Launcher Icons
+* Layout and string resources for UI screens
+* Test Hilt Modules (see [Notes and Quirks](#notes-and-quirks))
+
+The app module, as well as other modules with Android UI components will depend on the UI Component module for colors
+and theming resources.
+
+This module sits on top of the dependency stack, and should not be added as a dependency in other modules. In the
+scheme of MVVM, the app module holds the View and ViewModel.
+
+### Feature-UI Modules
+
+Feature-UI modules are similar to the app module but only contains UI components of a single feature This includes
+Activities or Fragments, layouts, and string resources. Like the app module, this also contains the View and ViewModel
+in MVVM.
+
+### Feature-Model Modules
+
+Feature-Model modules are a collection of model components related to a specific feature. It holds the data models and
+accessors, whether local or remote. A feature-model module is broken down into the following components:
+* Hilt Module Class
+* Data Models
+* UseCases
+* Local Database components such as the Database class, DAOs and entities
+* Remote components such as APIs and request/response objects
+
+This module is internal, but exposes the Data Models and UseCases. UseCases are injected into the app and IU
+modules via the feature Hilt Module Class. In the scheme of MVVM, this module serves as the Model.
+
+### UI Components Module
+
+Contains color and theme resources shared by modules that have layouts for Activities and Fragments.
+
+### Test Module
+
+The Test Module contains a collection of utilities to aid in testing such as assertions and data factories, as well as
+base classes for [instrumentation](test/src/main/java/ph/teko/app/test/base/BaseInstrumentationTest.kt) and
+[unit](test/src/main/java/ph/teko/app/test/base/BaseUnitTest.kt) tests. The test module should be added as
+`androidTestImplementation` and `testImplementation` dependencies in other modules.
+
+
+## Features and Libraries Used
 
 **[DataBinding](https://developer.android.com/topic/libraries/data-binding)**
 
@@ -41,46 +85,8 @@ Android Guide: https://developer.android.com/training/testing/local-tests
 **[KTLint](https://ktlint.github.io)**\
 Plugin: https://github.com/jlleitschuh/ktlint-gradle
 
----
 
-### Architecture and Components
-
-This template follows the MVVM architecture separated by kotlin modules in an attempt to conform to
-[clean code](https://www.oncehub.com/blog/explaining-clean-architecture) architecture.
-
-#### App Module
-
-The app module holds the android components of the project, including:
-* The Application class
-* Activities, Fragments, Services and other android classes
-* ViewModel and its Controller that uses the feature module UseCases
-* Resources such as layouts, strings, images, etc.
-* Depends on the UI Component module for colors and theming
-
-This module sits on top of the dependency stack, meaning that it is not visible (internal in Kotlin terms) to lower
-modules such as feature and the core module. In the scheme of MVVM, the app module holds the View and ViewModel.
-
-#### Feature Modules
-
-Feature modules are a collection of components related to a specific feature. For example, if there is a feature for
-users then there should be a UserModule that holds the models and repositories of user-related features. A feature
-module is broken down into the following components:
-* Hilt Module Class
-* Data Models
-* UseCases
-* Local Database components such as the Database class, DAOs and entities
-* Remote components such as APIs and request/response objects
-
-This module is also internal, but exposes the Data Models and UseCases. UseCases are injected into the app module via
-the feature Hilt Module Class. In the scheme of MVVM, this module serves as the Model.
-
-#### UI Component Module
-
-Contains color and theme resources shared by modules that have layouts for Activities and Fragments.
-
----
-
-### Notes and Quirks
+## Notes and Quirks
 
 * Instrumentation Hilt modules in features used to mock/replace actual Hilt modules are not being detected during
 testing. When running instrumentation tests, the actual modules are still being detected. As a work-around, the

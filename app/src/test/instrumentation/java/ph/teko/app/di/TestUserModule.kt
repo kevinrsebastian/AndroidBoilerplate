@@ -9,9 +9,9 @@ import ph.teko.app.user_model.di.UserModule
 import ph.teko.app.user_model.usecase.UserUseCase
 import javax.inject.Singleton
 
-/* Moved to the app module because test hilt modules in feature modules are not being detected unless they are
+/* Moved to the app module because test hilt modules in other project modules are not being detected unless they are
  * added as sourceSets. Adding those directories as sourceSets make the internal classes invisible to the modules. */
-// TODO: Find a way to move this to user module
+// TODO: Find a way to move this to user-model module
 @Module
 @TestInstallIn(
     components = [SingletonComponent::class],

@@ -12,10 +12,8 @@ import ph.teko.app.user_model.db.UserDb
 import ph.teko.app.user_model.usecase.UserUseCase
 import ph.teko.app.user_model.usecase.UserUseCaseImpl
 
-/*
- * Not set as internal because test hilt modules in this feature module are not being detected during instrumentation.
- * The test module replacing this is moved to the app module.
- */
+/* Not set as internal because test hilt modules in this project module are not being detected during instrumentation.
+ * The test module replacing this is moved to the app module. */
 @Module
 @InstallIn(SingletonComponent::class)
 class UserModule {
