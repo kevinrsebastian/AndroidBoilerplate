@@ -1,10 +1,10 @@
-package com.kevinrsebastian.ui_components.view
+package ph.teko.app.ui_components.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.kevinrsebastian.ui_components.R
-import com.kevinrsebastian.ui_components.databinding.ActivityColorThemeBinding
+import ph.teko.app.ui_components.R
+import ph.teko.app.ui_components.databinding.ActivityColorThemeBinding
 import timber.log.Timber
 
 class ColorThemeActivity : AppCompatActivity() {

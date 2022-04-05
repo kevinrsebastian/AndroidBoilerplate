@@ -24,7 +24,7 @@
         </activity>
 
         <activity
-            android:name="com.kevinrsebastian.ui_components.view.ColorThemeActivity"
+            android:name="ph.teko.app.ui_components.view.ColorThemeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
