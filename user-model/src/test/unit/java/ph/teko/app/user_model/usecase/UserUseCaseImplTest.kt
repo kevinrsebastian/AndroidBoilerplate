@@ -1,9 +1,6 @@
 package ph.teko.app.user_model.usecase
 
 import com.google.gson.Gson
-import com.kevinrsebastian.test.assertion.UserAssertion.assertEqual
-import com.kevinrsebastian.test.base.BaseUnitTest
-import com.kevinrsebastian.test.factory.UserFactory
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
@@ -20,6 +17,9 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.spy
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
+import ph.teko.app.test.assertion.UserAssertion.assertEqual
+import ph.teko.app.test.base.BaseUnitTest
+import ph.teko.app.test.factory.UserFactory
 import ph.teko.app.user_model.api.MockUserApi
 import ph.teko.app.user_model.db.UserDao
 import ph.teko.app.user_model.db.UserEntity

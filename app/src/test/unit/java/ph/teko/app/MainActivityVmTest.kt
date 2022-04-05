@@ -1,7 +1,5 @@
 package ph.teko.app
 
-import com.kevinrsebastian.test.base.BaseUnitTest
-import com.kevinrsebastian.test.factory.UserFactory
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import org.assertj.core.api.Assertions.assertThat
@@ -19,6 +17,8 @@ import org.mockito.Mockito.verifyNoMoreInteractions
 import ph.teko.app.extension.getOrAwaitValue
 import ph.teko.app.extension.hasNotBeenSet
 import ph.teko.app.temp.TempService
+import ph.teko.app.test.base.BaseUnitTest
+import ph.teko.app.test.factory.UserFactory
 import ph.teko.app.user_model.data.User
 import ph.teko.app.user_model.usecase.UserUseCase
 import ph.teko.app.util.rx.SyncRxSchedulerUtils

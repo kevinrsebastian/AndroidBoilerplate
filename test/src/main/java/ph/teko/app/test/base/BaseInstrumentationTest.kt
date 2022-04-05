@@ -1,4 +1,4 @@
-package com.kevinrsebastian.test.base
+package ph.teko.app.test.base
 
 import androidx.test.espresso.intent.Intents
 import dagger.hilt.android.testing.HiltAndroidRule

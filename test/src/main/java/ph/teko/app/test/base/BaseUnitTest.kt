@@ -1,4 +1,4 @@
-package com.kevinrsebastian.test.base
+package ph.teko.app.test.base
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import io.reactivex.rxjava3.plugins.RxJavaPlugins

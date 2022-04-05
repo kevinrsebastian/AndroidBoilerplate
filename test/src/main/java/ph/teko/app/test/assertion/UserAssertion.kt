@@ -1,4 +1,4 @@
-package com.kevinrsebastian.test.assertion
+package ph.teko.app.test.assertion
 
 import org.assertj.core.api.Assertions.assertThat
 import ph.teko.app.user_model.data.User

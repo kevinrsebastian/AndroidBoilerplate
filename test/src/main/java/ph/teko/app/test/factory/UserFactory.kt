@@ -1,4 +1,4 @@
-package com.kevinrsebastian.test.factory
+package ph.teko.app.test.factory
 
 import org.fluttercode.datafactory.impl.DataFactory
 import ph.teko.app.user_model.data.User

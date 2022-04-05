@@ -5,8 +5,6 @@ import androidx.test.core.app.launchActivity
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.kevinrsebastian.test.base.BaseInstrumentationTest
-import com.kevinrsebastian.test.factory.UserFactory
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -17,6 +15,8 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 import ph.teko.app.temp.TempGreeter
+import ph.teko.app.test.base.BaseInstrumentationTest
+import ph.teko.app.test.factory.UserFactory
 import ph.teko.app.testutil.AssertionTestUtils.assertHasText
 import ph.teko.app.testutil.AssertionTestUtils.assertIsDisabled
 import ph.teko.app.testutil.AssertionTestUtils.assertIsEnabled
