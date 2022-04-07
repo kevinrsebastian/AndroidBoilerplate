@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default Button -->
+    <style name="AppTheme.Button" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="materialThemeOverlay">@style/AppTheme.Button.MaterialThemeOverlay</item>
+        <item name="iconTint">@color/selector_default_button_text_color</item>
+        <item name="android:textColor">@color/selector_default_button_text_color</item>
+    </style>
+    <style name="AppTheme.Button.MaterialThemeOverlay" parent="ThemeOverlay.Material3.Button.TextButton">
+        <item name="colorContainer">@color/md_theme_primary</item>
+        <item name="colorOnContainer">@color/md_theme_onPrimary</item>
+    </style>
+
+    <!-- Accent Button -->
+    <style name="AppTheme.Button.Accent" parent="AppTheme.Button">
+        <item name="materialThemeOverlay">@style/AppTheme.Button.MaterialThemeOverlay.Accent</item>
+        <item name="iconTint">@color/selector_accent_button_text_color</item>
+        <item name="android:textColor">@color/selector_accent_button_text_color</item>
+    </style>
+    <style name="AppTheme.Button.MaterialThemeOverlay.Accent" parent="AppTheme.Button.MaterialThemeOverlay">
+        <item name="colorContainer">@color/md_theme_tertiary</item>
+        <item name="colorOnContainer">@color/md_theme_onTertiary</item>
+    </style>
+
+    <!-- Outlined Button -->
+    <style name="AppTheme.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="backgroundTint">#00FFFFFF</item>
+        <item name="iconTint">@color/selector_outlined_button_text_color</item>
+        <item name="strokeColor">@color/selector_outlined_button_stroke_color</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">@color/selector_outlined_button_text_color</item>
+    </style>
+
+    <!-- Outlined Mono Button -->
+    <!-- A light/dark button using material theme surface color for the outline, text and icon -->
+    <style name="AppTheme.Button.Outlined.Mono" parent="AppTheme.Button.Outlined">
+        <item name="iconTint">@color/selector_outlined_mono_button_text_color</item>
+        <item name="rippleColor">@color/selector_outlined_mono_button_ripple_color</item>
+        <item name="strokeColor">@color/selector_outlined_mono_button_stroke_color</item>
+        <item name="android:textColor">@color/selector_outlined_mono_button_text_color</item>
+    </style>
+
+    <!-- Tonal Button -->
+    <style name="AppTheme.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="materialThemeOverlay">@style/AppTheme.Button.MaterialThemeOverlay.Tonal</item>
+    </style>
+    <style name="AppTheme.Button.MaterialThemeOverlay.Tonal" parent="AppTheme.Button.MaterialThemeOverlay">
+        <item name="colorContainer">@color/md_theme_primaryContainer</item>
+        <item name="colorOnContainer">@color/md_theme_onPrimaryContainer</item>
+    </style>
+</resources>

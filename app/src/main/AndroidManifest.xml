@@ -23,9 +23,5 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="ph.teko.app.ui_components.view.ColorThemeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
     </application>
 </manifest>

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="_default">Default</string>
+    <string name="accent">Accent</string>
     <string name="background">Background</string>
     <string name="error">Error</string>
     <string name="error_container">Error Container</string>
+    <string name="outlined">Outlined</string>
+    <string name="outlined_mono">Outlined Mono</string>
     <string name="primary">Primary</string>
     <string name="primary_container">Primary Container</string>
     <string name="secondary">Secondary</string>
@@ -11,4 +15,5 @@
     <string name="surface_variant">Surface Variant</string>
     <string name="tertiary">Tertiary</string>
     <string name="tertiary_container">Tertiary Container</string>
+    <string name="tonal">Tonal</string>
 </resources>
