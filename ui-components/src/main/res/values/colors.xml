@@ -35,7 +35,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Specific Colors -->
-    <color name="launcher_icon_bg">#4696EF</color>
     <color name="outlined_mono_button">@color/white</color>
     <color name="outlined_mono_button_disabled">#3A3A3A</color>
 

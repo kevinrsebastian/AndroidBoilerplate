@@ -26,6 +26,35 @@ android {
         }
     }
 
+    flavorDimensions("env")
+    productFlavors {
+        /** Variant for development and experimentation **/
+        dev {
+            dimension "env"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-d"
+        }
+
+        /** Variant for QA testing and debugging **/
+        staging {
+            dimension "env"
+            applicationIdSuffix ".staging"
+            versionNameSuffix "-s"
+        }
+
+        /** Variant for pre-release testing **/
+        rc {
+            dimension "env"
+            applicationIdSuffix ".rc"
+            versionNameSuffix "-r"
+        }
+
+        /** Variant that goes to the Google Play Store **/
+        prod {
+            dimension "env"
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
