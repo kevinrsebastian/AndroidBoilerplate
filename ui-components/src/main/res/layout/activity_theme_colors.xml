@@ -14,8 +14,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
+            <!-- Primary -->
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -25,12 +27,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_medium"
-                    android:text="@string/primary"
+                    android:text="Primary"
                     android:textSize="16sp"
                     android:textStyle="bold|italic"
-                    android:textColor="@color/md_theme_onPrimary" />
+                    android:textColor="@color/md_theme_onPrimary"
+                    tools:ignore="HardcodedText" />
             </FrameLayout>
 
+            <!-- Primary Container -->
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -40,18 +44,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_medium"
-                    android:text="@string/primary_container"
+                    android:text="Primary Container"
                     android:textSize="16sp"
                     android:textStyle="bold|italic"
-                    android:textColor="@color/md_theme_onPrimaryContainer" />
+                    android:textColor="@color/md_theme_onPrimaryContainer"
+                    tools:ignore="HardcodedText" />
             </FrameLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
+            <!-- Secondary -->
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -62,12 +69,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_medium"
-                    android:text="@string/secondary"
+                    android:text="Secondary"
                     android:textSize="16sp"
                     android:textStyle="bold|italic"
-                    android:textColor="@color/md_theme_onSecondary" />
+                    android:textColor="@color/md_theme_onSecondary"
+                    tools:ignore="HardcodedText" />
             </FrameLayout>
 
+            <!-- Secondary container -->
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -78,18 +87,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_medium"
-                    android:text="@string/secondary_container"
+                    android:text="Secondary Container"
                     android:textSize="16sp"
                     android:textStyle="bold|italic"
-                    android:textColor="@color/md_theme_onSecondaryContainer" />
+                    android:textColor="@color/md_theme_onSecondaryContainer"
+                    tools:ignore="HardcodedText" />
             </FrameLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
+            <!-- Tertiary -->
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -100,12 +112,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_medium"
-                    android:text="@string/tertiary"
+                    android:text="Tertiary"
                     android:textSize="16sp"
                     android:textStyle="bold|italic"
-                    android:textColor="@color/md_theme_onTertiary" />
+                    android:textColor="@color/md_theme_onTertiary"
+                    tools:ignore="HardcodedText" />
             </FrameLayout>
 
+            <!-- Tertiary Container -->
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -116,18 +130,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_medium"
-                    android:text="@string/tertiary_container"
+                    android:text="Tertiary Container"
                     android:textSize="16sp"
                     android:textStyle="bold|italic"
-                    android:textColor="@color/md_theme_onTertiaryContainer" />
+                    android:textColor="@color/md_theme_onTertiaryContainer"
+                    tools:ignore="HardcodedText" />
             </FrameLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="DisableBaselineAlignment">
 
+            <!-- Error -->
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -138,12 +155,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_medium"
-                    android:text="@string/error"
+                    android:text="Error"
                     android:textSize="16sp"
                     android:textStyle="bold|italic"
-                    android:textColor="@color/md_theme_onError" />
+                    android:textColor="@color/md_theme_onError"
+                    tools:ignore="HardcodedText" />
             </FrameLayout>
 
+            <!-- Error Container -->
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -154,39 +173,38 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_medium"
-                    android:text="@string/error_container"
+                    android:text="Error Container"
                     android:textSize="16sp"
                     android:textStyle="bold|italic"
-                    android:textColor="@color/md_theme_onErrorContainer" />
+                    android:textColor="@color/md_theme_onErrorContainer"
+                    tools:ignore="HardcodedText" />
             </FrameLayout>
         </LinearLayout>
+
+        <!-- Background -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/md_theme_background"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_medium"
+                android:text="Background"
+                android:textSize="16sp"
+                android:textStyle="bold|italic"
+                android:textColor="@color/md_theme_onBackground"
+                tools:ignore="HardcodedText" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:orientation="horizontal">
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/md_theme_background"
-                app:layout_constraintTop_toTopOf="parent">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/space_medium"
-                    android:text="@string/background"
-                    android:textSize="16sp"
-                    android:textStyle="bold|italic"
-                    android:textColor="@color/md_theme_onBackground" />
-            </FrameLayout>
-        </LinearLayout>
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal">
-
+            <!-- Surface -->
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -197,12 +215,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_medium"
-                    android:text="@string/surface"
+                    android:text="Surface"
                     android:textSize="16sp"
                     android:textStyle="bold|italic"
-                    android:textColor="@color/md_theme_onSurface" />
+                    android:textColor="@color/md_theme_onSurface"
+                    tools:ignore="HardcodedText" />
             </FrameLayout>
 
+            <!-- Surface Variant -->
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -213,10 +233,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_medium"
-                    android:text="@string/surface_variant"
+                    android:text="Surface Variant"
                     android:textSize="16sp"
                     android:textStyle="bold|italic"
-                    android:textColor="@color/md_theme_onSurfaceVariant" />
+                    android:textColor="@color/md_theme_onSurfaceVariant"
+                    tools:ignore="HardcodedText" />
             </FrameLayout>
 
         </LinearLayout>

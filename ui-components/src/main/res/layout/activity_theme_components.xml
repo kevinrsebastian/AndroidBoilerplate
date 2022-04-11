@@ -211,9 +211,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/space_medium"
                     android:layout_marginVertical="@dimen/space_small"
-                    android:text="@string/_default"
+                    android:text="Default"
                     app:icon="@drawable/ic_baseline_brightness_1_24"
-                    style="@style/AppTheme.Button" />
+                    style="@style/AppTheme.Button"
+                    tools:ignore="HardcodedText" />
 
                 <!-- Tonal Button -->
                 <Button
@@ -222,9 +223,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/space_medium"
                     android:layout_marginVertical="@dimen/space_small"
-                    android:text="@string/tonal"
+                    android:text="Tonal"
                     app:icon="@drawable/ic_baseline_brightness_1_24"
-                    style="@style/AppTheme.Button.Tonal" />
+                    style="@style/AppTheme.Button.Tonal"
+                    tools:ignore="HardcodedText" />
 
                 <!-- Accent Button -->
                 <Button
@@ -233,9 +235,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/space_medium"
                     android:layout_marginVertical="@dimen/space_small"
-                    android:text="@string/accent"
+                    android:text="Accent"
                     app:icon="@drawable/ic_baseline_brightness_1_24"
-                    style="@style/AppTheme.Button.Accent" />
+                    style="@style/AppTheme.Button.Accent"
+                    tools:ignore="HardcodedText" />
 
                 <!-- Outlined Button -->
                 <Button
@@ -244,9 +247,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/space_medium"
                     android:layout_marginVertical="@dimen/space_small"
-                    android:text="@string/outlined"
+                    android:text="Outlined"
                     app:icon="@drawable/ic_baseline_brightness_1_24"
-                    style="@style/AppTheme.Button.Outlined" />
+                    style="@style/AppTheme.Button.Outlined"
+                    tools:ignore="HardcodedText" />
 
                 <!-- Outlined Mono Button -->
                 <FrameLayout
@@ -259,11 +263,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/space_medium"
                         android:layout_marginVertical="@dimen/space_small"
-                        android:text="@string/outlined_mono"
+                        android:text="Outlined Mono"
                         app:icon="@drawable/ic_baseline_brightness_1_24"
-                        style="@style/AppTheme.Button.Outlined.Mono" />
+                        style="@style/AppTheme.Button.Outlined.Mono"
+                        tools:ignore="HardcodedText" />
                 </FrameLayout>
-
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
