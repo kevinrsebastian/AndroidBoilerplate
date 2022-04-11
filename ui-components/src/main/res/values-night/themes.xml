@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base theme -->
+    <style name="AppTheme" parent="AppTheme.Colors">
+        <!-- Enable elevation tints to distinguish surfaces with different elevations in dark mode -->
+        <item name="elevationOverlayEnabled">true</item>
+    </style>
+
     <!-- No ActionBar theme -->
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>

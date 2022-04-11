@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base theme with dynamic night/day colors -->
-    <style name="AppTheme" parent="Theme.Material3.DayNight">
+    <!-- Only add theme color items here -->
+    <style name="AppTheme.Colors" parent="Theme.Material3.DayNight">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -35,6 +36,13 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_primaryInverse</item>
+    </style>
+
+    <!-- Base theme -->
+    <style name="AppTheme" parent="AppTheme.Colors">
+        <!-- Disable elevation tints to get the actual colors such as whites. Enabled in dark mode. -->
+        <!-- https://github.com/material-components/material-components-android/issues/1402 -->
+        <item name="elevationOverlayEnabled">false</item>
     </style>
 
     <!-- NoActionBar theme -->

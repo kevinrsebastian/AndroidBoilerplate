@@ -4,66 +4,267 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_medium"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/space_medium"
         tools:context=".MainActivity">
 
-        <Button
-            android:id="@+id/btn_default"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_medium"
-            android:layout_marginVertical="@dimen/space_small"
-            android:text="@string/_default"
-            app:icon="@drawable/ic_baseline_brightness_1_24"
-            style="@style/AppTheme.Button" />
-
-        <Button
-            android:id="@+id/btn_tonal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_medium"
-            android:layout_marginVertical="@dimen/space_small"
-            android:text="@string/tonal"
-            app:icon="@drawable/ic_baseline_brightness_1_24"
-            style="@style/AppTheme.Button.Tonal" />
-
-        <Button
-            android:id="@+id/btn_accent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_medium"
-            android:layout_marginVertical="@dimen/space_small"
-            android:text="@string/accent"
-            app:icon="@drawable/ic_baseline_brightness_1_24"
-            style="@style/AppTheme.Button.Accent" />
-
-        <Button
-            android:id="@+id/btn_outlined"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_medium"
-            android:layout_marginVertical="@dimen/space_small"
-            android:text="@string/outlined"
-            app:icon="@drawable/ic_baseline_brightness_1_24"
-            style="@style/AppTheme.Button.Outlined" />
-
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/md_theme_secondary">
-            <Button
-                android:id="@+id/btn_outlined_mono"
-                android:layout_width="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Cards -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_medium"
-                android:layout_marginVertical="@dimen/space_small"
-                android:text="@string/outlined_mono"
-                app:icon="@drawable/ic_baseline_brightness_1_24"
-                style="@style/AppTheme.Button.Outlined.Mono" />
-        </FrameLayout>
-    </LinearLayout>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_medium"
+                    android:layout_marginTop="@dimen/space_large"
+                    android:text="Cards"
+                    android:textColor="@color/md_theme_onBackground"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+                <!-- Surface Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_medium"
+                    android:layout_marginVertical="@dimen/space_small"
+                    app:contentPaddingBottom="@dimen/space_medium"
+                    app:contentPaddingTop="@dimen/space_medium"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:checkable="true"
+                    style="@style/AppTheme.Card">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/space_medium"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:text="Surface Card"
+                            android:textColor="@color/md_theme_onSurface"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/space_medium"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:text="OnSurface"
+                            android:textColor="@color/md_theme_onSurface"
+                            tools:ignore="HardcodedText" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/space_medium"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:text="OnSurface Label"
+                            android:textColor="@color/onSurface_label"
+                            tools:ignore="HardcodedText" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:background="@color/onSurface_divider" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/space_medium"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:text="Divider"
+                            android:textSize="12sp"
+                            android:textColor="@color/onSurface_divider"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Primary Color Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_medium"
+                    android:layout_marginVertical="@dimen/space_small"
+                    app:contentPaddingBottom="@dimen/space_medium"
+                    app:contentPaddingTop="@dimen/space_medium"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:checkable="true"
+                    style="@style/AppTheme.Card.Colored.Primary">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/space_medium"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:text="Colored Primary Card"
+                            android:textColor="@color/md_theme_onPrimary"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/space_medium"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:text="OnSecondary"
+                            android:textColor="@color/md_theme_onPrimary"
+                            tools:ignore="HardcodedText" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:background="@color/md_theme_onPrimary" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/space_medium"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:text="Divider"
+                            android:textSize="12sp"
+                            android:textColor="@color/md_theme_onPrimary"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Secondary Color Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_medium"
+                    android:layout_marginVertical="@dimen/space_small"
+                    app:contentPaddingBottom="@dimen/space_medium"
+                    app:contentPaddingTop="@dimen/space_medium"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:checkable="true"
+                    style="@style/AppTheme.Card.Colored.Secondary">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/space_medium"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:text="Colored Secondary Card"
+                            android:textColor="@color/md_theme_onSecondary"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/space_medium"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:text="OnSecondary"
+                            android:textColor="@color/md_theme_onSecondary"
+                            tools:ignore="HardcodedText" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:background="@color/md_theme_onSecondary" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/space_medium"
+                            android:layout_marginVertical="@dimen/space_xxsmall"
+                            android:text="Divider"
+                            android:textSize="12sp"
+                            android:textColor="@color/md_theme_onSecondary"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_medium"
+                    android:layout_marginTop="@dimen/space_large"
+                    android:text="Buttons"
+                    android:textColor="@color/md_theme_onBackground"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+                <!-- Default Button -->
+                <Button
+                    android:id="@+id/btn_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_medium"
+                    android:layout_marginVertical="@dimen/space_small"
+                    android:text="@string/_default"
+                    app:icon="@drawable/ic_baseline_brightness_1_24"
+                    style="@style/AppTheme.Button" />
+
+                <!-- Tonal Button -->
+                <Button
+                    android:id="@+id/btn_tonal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_medium"
+                    android:layout_marginVertical="@dimen/space_small"
+                    android:text="@string/tonal"
+                    app:icon="@drawable/ic_baseline_brightness_1_24"
+                    style="@style/AppTheme.Button.Tonal" />
+
+                <!-- Accent Button -->
+                <Button
+                    android:id="@+id/btn_accent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_medium"
+                    android:layout_marginVertical="@dimen/space_small"
+                    android:text="@string/accent"
+                    app:icon="@drawable/ic_baseline_brightness_1_24"
+                    style="@style/AppTheme.Button.Accent" />
+
+                <!-- Outlined Button -->
+                <Button
+                    android:id="@+id/btn_outlined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_medium"
+                    android:layout_marginVertical="@dimen/space_small"
+                    android:text="@string/outlined"
+                    app:icon="@drawable/ic_baseline_brightness_1_24"
+                    style="@style/AppTheme.Button.Outlined" />
+
+                <!-- Outlined Mono Button -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/md_theme_secondary">
+                    <Button
+                        android:id="@+id/btn_outlined_mono"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/space_medium"
+                        android:layout_marginVertical="@dimen/space_small"
+                        android:text="@string/outlined_mono"
+                        app:icon="@drawable/ic_baseline_brightness_1_24"
+                        style="@style/AppTheme.Button.Outlined.Mono" />
+                </FrameLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </layout>

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- =========================================================================================================== -->
+    <!-- Buttons                                                                                                     -->
+    <!-- =========================================================================================================== -->
     <!-- Default Button -->
     <style name="AppTheme.Button" parent="Widget.Material3.Button.ElevatedButton">
         <item name="materialThemeOverlay">@style/AppTheme.Button.MaterialThemeOverlay</item>
@@ -47,5 +50,25 @@
     <style name="AppTheme.Button.MaterialThemeOverlay.Tonal" parent="AppTheme.Button.MaterialThemeOverlay">
         <item name="colorContainer">@color/md_theme_primaryContainer</item>
         <item name="colorOnContainer">@color/md_theme_onPrimaryContainer</item>
+    </style>
+
+    <!-- =========================================================================================================== -->
+    <!-- Cards                                                                                                       -->
+    <!-- =========================================================================================================== -->
+    <!-- Surface Card  -->
+    <style name="AppTheme.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardElevation">5dp</item>
+    </style>
+
+    <!-- Filled Primary Card -->
+    <style name="AppTheme.Card.Colored.Primary" parent="AppTheme.Card">
+        <item name="cardBackgroundColor">@color/md_theme_primary</item>
+        <item name="rippleColor">@color/selector_filled_primary_card_ripple_color</item>
+    </style>
+
+    <!-- Filled Secondary Card -->
+    <style name="AppTheme.Card.Colored.Secondary" parent="AppTheme.Card">
+        <item name="cardBackgroundColor">@color/md_theme_secondary</item>
+        <item name="rippleColor">@color/selector_filled_secondary_card_ripple_color</item>
     </style>
 </resources>

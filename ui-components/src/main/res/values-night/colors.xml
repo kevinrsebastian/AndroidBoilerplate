@@ -32,4 +32,8 @@
 
     <!-- Specific Colors -->
     <color name="outlined_mono_button">@color/black</color>
+
+    <!-- OnSurface -->
+    <color name="onSurface_label">#969198</color>
+    <color name="onSurface_divider">#AAA4B1</color>
 </resources>
