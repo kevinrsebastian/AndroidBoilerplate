@@ -6,6 +6,17 @@ plugins {
     id "kotlin-parcelize"
 }
 
+/*** Signing Properties ***/
+def debugSigningFile = rootProject.file("config/signing/debug/signing.properties")
+def debugSigningProps = new Properties()
+debugSigningProps.load(new FileInputStream(debugSigningFile))
+
+def releaseSigningFile = rootProject.file("config/signing/release/signing.properties")
+def releaseSigningProps = new Properties()
+releaseSigningProps.load(new FileInputStream(releaseSigningFile))
+
+println debugSigningProps["DebugKeyStorePath"]
+
 android {
     compileSdk compile_sdk
     compileSdkVersion compile_sdk
@@ -19,8 +30,27 @@ android {
         testInstrumentationRunner "ph.teko.app.CustomTestRunner"
     }
 
-    buildTypes {
+    signingConfigs {
+        debug {
+            keyAlias debugSigningProps["keyAlias"]
+            keyPassword debugSigningProps["keyPassword"]
+            storeFile file(debugSigningProps["storeFile"])
+            storePassword debugSigningProps["storePassword"]
+        }
         release {
+            keyAlias releaseSigningProps["keyAlias"]
+            keyPassword releaseSigningProps["keyPassword"]
+            storeFile file(releaseSigningProps["storeFile"])
+            storePassword releaseSigningProps["storePassword"]
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }

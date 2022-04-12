@@ -84,3 +84,6 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+# Signing config for production
+config/signing/release
