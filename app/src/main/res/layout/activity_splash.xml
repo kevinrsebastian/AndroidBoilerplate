@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="ph.teko.app.MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/splash_background">
+
+        <!-- Background image -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/img_background_man"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            tools:ignore="ContentDescription" />
+
+        <!-- Sign In or Join container -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_sign_in_or_join"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_teko_technician_logo"
+                android:adjustViewBounds="true"
+                app:layout_constraintWidth_percent="0.6"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <Button
+                android:id="@+id/sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_small"
+                android:layout_marginHorizontal="@dimen/space_medium"
+                app:layout_constraintBottom_toTopOf="@id/join_as_as_technician"
+                android:text="@string/sign_in"
+                style="@style/AppTheme.Button" />
+
+            <Button
+                android:id="@+id/join_as_as_technician"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_large"
+                android:layout_marginHorizontal="@dimen/space_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/join_as_a_technician"
+                style="@style/AppTheme.Button.Outlined.Mono" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Loading Progress -->
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:indicatorColor="@color/md_theme_onSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -41,4 +41,8 @@
     <!-- OnSurface -->
     <color name="onSurface_label">#605D62</color>
     <color name="onSurface_divider">#79747E</color>
+
+    <!-- Splash -->
+    <color name="splash_background">#2263B7</color>
+    <color name="splash_statusBar_overlay">#924A4A4A</color>
 </resources>

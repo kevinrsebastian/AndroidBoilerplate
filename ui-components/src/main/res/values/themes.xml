@@ -52,4 +52,11 @@
         <item name="android:statusBarColor">@color/md_theme_background</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
+
+    <!-- Screen-specific themes -->
+    <style name="SplashTheme" parent="AppTheme.NoActionBar">
+        <item name="android:colorBackground">@color/splash_background</item>
+        <item name="android:statusBarColor">@color/splash_statusBar_overlay</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
 </resources>
