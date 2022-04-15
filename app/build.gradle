@@ -108,6 +108,7 @@ android {
 
 dependencies {
     /* Modules */
+    implementation project(":core")
     implementation project(":test")
     implementation project(":ui-components")
     implementation project(":user-model")

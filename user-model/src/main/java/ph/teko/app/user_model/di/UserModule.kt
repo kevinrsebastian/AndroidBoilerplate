@@ -11,6 +11,8 @@ import ph.teko.app.user_model.db.UserDao
 import ph.teko.app.user_model.db.UserDb
 import ph.teko.app.user_model.usecase.UserUseCase
 import ph.teko.app.user_model.usecase.UserUseCaseImpl
+import retrofit2.Retrofit
+import javax.inject.Singleton
 
 /* Not set as internal because test hilt modules in this project module are not being detected during instrumentation.
  * The test module replacing this is moved to the app module. */
@@ -21,6 +23,12 @@ class UserModule {
     @Provides
     internal fun provideDatabase(@ApplicationContext context: Context): UserDb {
         return UserDb.create(context)
+    }
+
+    @Provides
+    @Singleton
+    internal fun provideMockApi(retrofit: Retrofit): MockUserApi {
+        return retrofit.create(MockUserApi::class.java)
     }
 
     @Provides

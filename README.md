@@ -50,6 +50,11 @@ modules via the feature Hilt Module Class. In the scheme of MVVM, this module se
 
 Contains color and theme resources shared by modules that have layouts for Activities and Fragments.
 
+### Core Module
+
+Provides components and utilities commonly shared by other modules such as: 
+* SharedPreferences
+
 ### Test Module
 
 The Test Module contains a collection of utilities to aid in testing such as assertions and data factories, as well as
