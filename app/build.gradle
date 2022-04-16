@@ -63,6 +63,7 @@ android {
             dimension "env"
             applicationIdSuffix ".dev"
             versionNameSuffix "-d"
+            buildConfigField "String", "TEKO_REST_API_URL", '"https://dev-api.teko.ph/"'
         }
 
         /** Variant for QA testing and debugging **/
@@ -70,6 +71,7 @@ android {
             dimension "env"
             applicationIdSuffix ".staging"
             versionNameSuffix "-s"
+            buildConfigField "String", "TEKO_REST_API_URL", '"https://staging-api.teko.ph/"'
         }
 
         /** Variant for pre-release testing **/
@@ -77,11 +79,13 @@ android {
             dimension "env"
             applicationIdSuffix ".rc"
             versionNameSuffix "-r"
+            buildConfigField "String", "TEKO_REST_API_URL", '"https://rc-api.teko.ph/"'
         }
 
         /** Variant that goes to the Google Play Store **/
         prod {
             dimension "env"
+            buildConfigField "String", "TEKO_REST_API_URL", '"https://api-v0.teko.ph/"'
         }
     }
 

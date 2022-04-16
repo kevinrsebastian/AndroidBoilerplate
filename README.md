@@ -52,7 +52,8 @@ Contains color and theme resources shared by modules that have layouts for Activ
 
 ### Core Module
 
-Provides components and utilities commonly shared by other modules such as: 
+Provides components and utilities commonly shared by other modules such as:
+* EnvConfig class that holds environment variables pulled from BuildConfig
 * SharedPreferences
 
 ### Test Module
