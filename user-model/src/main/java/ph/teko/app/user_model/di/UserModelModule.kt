@@ -6,7 +6,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import ph.teko.app.core.di.HiltQualifiers.MockRetrofit
+import ph.teko.app.core.di.HiltQualifiers.TekoRetrofit
 import ph.teko.app.user_model.api.MockUserApi
+import ph.teko.app.user_model.api.UserApi
 import ph.teko.app.user_model.db.UserDao
 import ph.teko.app.user_model.db.UserDb
 import ph.teko.app.user_model.usecase.UserUseCase
@@ -18,7 +21,7 @@ import javax.inject.Singleton
  * The test module replacing this is moved to the app module. */
 @Module
 @InstallIn(SingletonComponent::class)
-class UserModule {
+class UserModelModule {
 
     @Provides
     internal fun provideDatabase(@ApplicationContext context: Context): UserDb {
@@ -27,8 +30,14 @@ class UserModule {
 
     @Provides
     @Singleton
-    internal fun provideMockApi(retrofit: Retrofit): MockUserApi {
+    internal fun provideMockApi(@MockRetrofit retrofit: Retrofit): MockUserApi {
         return retrofit.create(MockUserApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    internal fun provideUserApi(@TekoRetrofit retrofit: Retrofit): UserApi {
+        return retrofit.create(UserApi::class.java)
     }
 
     @Provides

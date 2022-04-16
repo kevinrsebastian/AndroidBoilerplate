@@ -13,6 +13,9 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import ph.teko.app.core.BuildConfig
+import ph.teko.app.core.config.EnvConfig
+import ph.teko.app.core.di.HiltQualifiers.MockRetrofit
+import ph.teko.app.core.di.HiltQualifiers.TekoRetrofit
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -31,15 +34,35 @@ class CoreModule {
         return context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
     }
 
-    @Provides
+    @Provides @MockRetrofit
     @Singleton
-    fun provideRetrofit(@ApplicationContext context: Context): Retrofit {
-        val okHttpClient = OkHttpClient.Builder().apply {
+    internal fun provideMockRetrofit(@ApplicationContext context: Context): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://61e80425e32cd90017acbf6f.mockapi.io/")
+            .client(createOkHttpClient(context, "mock-okhttp"))
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .build()
+    }
+
+    @Provides @TekoRetrofit
+    @Singleton
+    internal fun provideTekoRetrofit(@ApplicationContext context: Context, envConfig: EnvConfig): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(envConfig.tekoRestApiUrl)
+            .client(createOkHttpClient(context, "teko-okhttp"))
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .build()
+    }
+
+    private fun createOkHttpClient(context: Context, cacheFileName: String): OkHttpClient {
+        return OkHttpClient.Builder().apply {
             // Cache size
             val isWritable = Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()
             val cacheDir = if (isWritable) context.externalCacheDir else context.cacheDir
             val diskSize = 250 * 1024 * 1024
-            cache(Cache(File(cacheDir, "temps"), diskSize.toLong()))
+            cache(Cache(File(cacheDir, cacheFileName), diskSize.toLong()))
 
             // Add header interceptor
             val headerInterceptor = Interceptor { chain ->
@@ -48,18 +71,12 @@ class CoreModule {
                 chain.proceed(request)
             }
             addInterceptor(headerInterceptor)
+
             // Debug interceptors
             if (BuildConfig.DEBUG) {
                 // Logging
                 addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
             }
         }.build()
-
-        return Retrofit.Builder()
-            .baseUrl("https://61e80425e32cd90017acbf6f.mockapi.io/")
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build()
     }
 }

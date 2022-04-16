@@ -40,6 +40,7 @@ android {
 
 dependencies {
     /* Modules */
+    implementation project(":core")
     testImplementation project(":test")
 
     /* AndroidX Support Commons */

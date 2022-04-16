@@ -5,7 +5,7 @@ import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import org.mockito.Mockito
-import ph.teko.app.user_model.di.UserModule
+import ph.teko.app.user_model.di.UserModelModule
 import ph.teko.app.user_model.usecase.UserUseCase
 import javax.inject.Singleton
 
@@ -15,9 +15,9 @@ import javax.inject.Singleton
 @Module
 @TestInstallIn(
     components = [SingletonComponent::class],
-    replaces = [UserModule::class]
+    replaces = [UserModelModule::class]
 )
-class TestUserModule {
+class TestUserModelModule {
 
     @Singleton
     @Provides
