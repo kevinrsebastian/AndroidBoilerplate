@@ -1,7 +1,6 @@
 package ph.teko.app.core.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Environment
 import dagger.Module
 import dagger.Provides
@@ -16,6 +15,8 @@ import ph.teko.app.core.BuildConfig
 import ph.teko.app.core.config.EnvConfig
 import ph.teko.app.core.di.HiltQualifiers.MockRetrofit
 import ph.teko.app.core.di.HiltQualifiers.TekoRetrofit
+import ph.teko.app.core.preferences.SharedPrefUtils
+import ph.teko.app.core.preferences.SharedPrefUtilsImpl
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,9 +30,8 @@ import javax.inject.Singleton
 class CoreModule {
 
     @Provides
-    internal fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        val sharedPreferencesName = context.packageName + "_preferences"
-        return context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
+    internal fun provideSharedPrefUtils(@ApplicationContext context: Context): SharedPrefUtils {
+        return SharedPrefUtilsImpl(context)
     }
 
     @Provides @MockRetrofit

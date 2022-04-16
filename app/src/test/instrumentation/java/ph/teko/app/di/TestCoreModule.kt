@@ -1,12 +1,12 @@
 package ph.teko.app.di
 
-import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import org.mockito.Mockito
 import ph.teko.app.core.di.CoreModule
+import ph.teko.app.core.preferences.SharedPrefUtils
 import javax.inject.Singleton
 
 /* Moved to the app module because test hilt modules in other project modules are not being detected unless they are
@@ -21,7 +21,7 @@ class TestCoreModule {
 
     @Singleton
     @Provides
-    fun provideSharedPreferences(): SharedPreferences {
-        return Mockito.mock(SharedPreferences::class.java)
+    fun provideSharedPrefUtils(): SharedPrefUtils {
+        return Mockito.mock(SharedPrefUtils::class.java)
     }
 }

@@ -65,6 +65,21 @@ dependencies {
 
     /** Test Dependencies **/
 
+    /* AndroidX Test */
+    testImplementation "androidx.test:core:1.4.0"
+    testImplementation "androidx.test:runner:1.4.0"
+
+    /* AssertJ */
+    def assertj_version = "3.22.0"
+    testImplementation "org.assertj:assertj-core:$assertj_version"
+
+    /* DataFactory */
+    implementation "org.fluttercode.datafactory:datafactory:0.8"
+
     /* JUnit */
     testImplementation "junit:junit:4.13.2"
+
+    /* Robolectric */
+    // https://github.com/robolectric/robolectric
+    testImplementation "org.robolectric:robolectric:4.7.3"
 }

@@ -54,7 +54,7 @@ Contains color and theme resources shared by modules that have layouts for Activ
 
 Provides components and utilities commonly shared by other modules such as:
 * EnvConfig class that holds environment variables pulled from BuildConfig
-* SharedPreferences
+* SharedPrefUtils that encapsulates access to [SharedPreferences](https://developer.android.com/reference/android/content/SharedPreferences)
 
 ### Test Module
 
@@ -91,6 +91,7 @@ Android Guide: https://developer.android.com/training/testing/local-tests
 **[KTLint](https://ktlint.github.io)**\
 Plugin: https://github.com/jlleitschuh/ktlint-gradle
 
+**[Robolectric](https://github.com/robolectric/robolectric)**
 
 ## Notes and Quirks
 
