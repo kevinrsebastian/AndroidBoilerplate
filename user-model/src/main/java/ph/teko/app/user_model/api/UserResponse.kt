@@ -10,6 +10,12 @@ internal data class UserResponse(
     val fname: String,
     val lname: String
 ) : Parcelable {
+    companion object {
+        fun fromUser(user: User): UserResponse {
+            return UserResponse(user.id, user.firstName, user.lastName)
+        }
+    }
+
     fun toUser(): User {
         return User(id = this.uid, firstName = this.fname, lastName = this.lname)
     }
