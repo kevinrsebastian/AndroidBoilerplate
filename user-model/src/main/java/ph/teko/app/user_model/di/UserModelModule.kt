@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ph.teko.app.core.di.HiltQualifiers.MockRetrofit
 import ph.teko.app.core.di.HiltQualifiers.TekoRetrofit
+import ph.teko.app.core.preferences.SharedPrefUtils
 import ph.teko.app.user_model.api.MockUserApi
 import ph.teko.app.user_model.api.UserApi
 import ph.teko.app.user_model.db.UserDao
@@ -46,7 +47,12 @@ class UserModelModule {
     }
 
     @Provides
-    internal fun provideUserUseCase(mockUserApi: MockUserApi, userDao: UserDao): UserUseCase {
-        return UserUseCaseImpl(mockUserApi, userDao)
+    internal fun provideUserUseCase(
+        mockUserApi: MockUserApi,
+        sharedPrefUtils: SharedPrefUtils,
+        userApi: UserApi,
+        userDao: UserDao
+    ): UserUseCase {
+        return UserUseCaseImpl(mockUserApi, sharedPrefUtils, userApi, userDao)
     }
 }
