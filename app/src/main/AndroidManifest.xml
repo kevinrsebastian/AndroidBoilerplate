@@ -18,6 +18,12 @@
         <activity android:name="ph.teko.app.MainActivity" />
 
         <activity
+            android:name="ph.teko.app.view.SignInActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name="ph.teko.app.view.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
