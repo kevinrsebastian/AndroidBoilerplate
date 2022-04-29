@@ -1,4 +1,4 @@
-package ph.teko.app.vm.splash
+package ph.teko.app.vm
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel

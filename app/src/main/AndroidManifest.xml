@@ -18,7 +18,7 @@
         <activity android:name="ph.teko.app.MainActivity" />
 
         <activity
-            android:name="ph.teko.app.view.splash.SplashActivity"
+            android:name="ph.teko.app.view.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"

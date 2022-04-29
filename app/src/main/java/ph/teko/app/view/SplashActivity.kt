@@ -1,4 +1,4 @@
-package ph.teko.app.view.splash
+package ph.teko.app.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import ph.teko.app.R
 import ph.teko.app.databinding.ActivitySplashBinding
-import ph.teko.app.vm.splash.SplashActivityVm
+import ph.teko.app.vm.SplashActivityVm
 import timber.log.Timber
 
 @SuppressLint("CustomSplashScreen")

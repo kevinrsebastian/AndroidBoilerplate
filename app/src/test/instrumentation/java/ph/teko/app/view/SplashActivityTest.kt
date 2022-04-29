@@ -1,4 +1,4 @@
-package ph.teko.app.view.splash
+package ph.teko.app.view
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.launchActivity

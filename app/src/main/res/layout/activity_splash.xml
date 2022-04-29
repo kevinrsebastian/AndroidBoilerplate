@@ -7,7 +7,7 @@
 
     <data>
         <import type="android.view.View" />
-        <variable name="vm" type="ph.teko.app.vm.splash.SplashActivityVm" />
+        <variable name="vm" type="ph.teko.app.vm.SplashActivityVm" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,4 +1,4 @@
-package ph.teko.app.vm.splash
+package ph.teko.app.vm
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
