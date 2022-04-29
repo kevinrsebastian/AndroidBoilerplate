@@ -8,11 +8,15 @@ import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
 import ph.teko.app.R
 import ph.teko.app.test.base.BaseInstrumentationTest
 import ph.teko.app.test.factory.UserFactory
+import ph.teko.app.testutil.AssertionTestUtils.assertActivityIsStarted
 import ph.teko.app.testutil.AssertionTestUtils.assertIsEnabled
 import ph.teko.app.testutil.AssertionTestUtils.assertIsGone
+import ph.teko.app.testutil.ViewTestUtils.clickViewWithId
 import ph.teko.app.testutil.ViewTestUtils.viewWithId
 import ph.teko.app.user_model.usecase.UserUseCase
 import javax.inject.Inject
@@ -32,6 +36,9 @@ class SplashActivityTest : BaseInstrumentationTest() {
         scenario.close()
     }
 
+    /**
+     * Scenario: A logged-in user exists in cache
+     */
     @Test
     fun launchWithLoggedInUser() {
         // Mock behaviour
@@ -44,11 +51,17 @@ class SplashActivityTest : BaseInstrumentationTest() {
         viewWithId(R.id.progress_loading).check(assertIsGone())
         viewWithId(R.id.btn_sign_in).check(assertIsEnabled())
         viewWithId(R.id.btn_join_as_as_technician).check(assertIsEnabled())
+
+        verifyBehaviour()
     }
 
+    /**
+     * Scenario: There is no logged-in user in cache. Sign-In and Join as a Tech options are displayed. Pressing the
+     *   Sign-In button will redirect the screen to SignInActivity.
+     */
     @Test
-    fun launchWithNoLoggedInUser() {
-        // Mock behaviour
+    fun navigateToSignInActivity() {
+        // Mock no logged-in user
         val user = null
         `when`(userUseCase.getUserFromCache()).thenReturn(user)
 
@@ -58,5 +71,15 @@ class SplashActivityTest : BaseInstrumentationTest() {
         viewWithId(R.id.progress_loading).check(assertIsGone())
         viewWithId(R.id.btn_sign_in).check(assertIsEnabled())
         viewWithId(R.id.btn_join_as_as_technician).check(assertIsEnabled())
+
+        clickViewWithId(R.id.btn_sign_in)
+        assertActivityIsStarted(SignInActivity::class.java.name)
+
+        verifyBehaviour()
+    }
+
+    private fun verifyBehaviour() {
+        verify(userUseCase).getUserFromCache()
+        verifyNoMoreInteractions(userUseCase)
     }
 }

@@ -2,6 +2,8 @@ package ph.teko.app.testutil
 
 import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
@@ -105,6 +107,15 @@ object AssertionTestUtils {
     /** Assert that the view is disabled. */
     fun assertIsDisabled(): ViewAssertion {
         return matches(not(isEnabled()))
+    }
+    // =================================================================================================================
+
+    // =================================================================================================================
+    // Activity Assertions
+    // =================================================================================================================
+    /** Assert that a called Activity has started. */
+    fun assertActivityIsStarted(activityClassName: String) {
+        Intents.intended(IntentMatchers.hasComponent(activityClassName))
     }
     // =================================================================================================================
 }

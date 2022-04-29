@@ -1,6 +1,7 @@
 package ph.teko.app.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -25,10 +26,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Timber.v("$TAG Created")
         setUpBinding()
-    }
 
-    override fun onStart() {
-        super.onStart()
         vm.checkForLoggedInUser(navigateToHomeScreen = {
             // TODO: Navigate to home screen
         })
@@ -38,5 +36,14 @@ class SplashActivity : AppCompatActivity() {
     private fun setUpBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
         binding.lifecycleOwner = this
+
+        binding.btnSignIn.setOnClickListener {
+            navigateToSignInActivity()
+        }
+    }
+
+    private fun navigateToSignInActivity() {
+        val intent = Intent(this, SignInActivity::class.java)
+        startActivity(intent)
     }
 }
